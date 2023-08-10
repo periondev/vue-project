@@ -1,27 +1,29 @@
 <template>
-  <Transition name="fade-outer">
-    <div
-      v-show="modelActive"
-      class="flex absolute top-0 left-0 w-full h-screen justify-center px-8 bg-black bg-opacity-30"
-    >
-      <Transition name="fade-inner">
-        <div
-          v-if="modelActive"
-          class="p-4 mt-32 max-w-screen-md self-start bg-white"
-        >
-          <slot />
-          <div class="flex justify-end">
-            <button
-              class="mt-8 py-2 px-6 text-white bg-weather-primary"
-              @click="$emit('close-model')"
-            >
-              關閉說明
-            </button>
+  <Teleport to="body">
+    <Transition name="fade-outer">
+      <div
+        v-show="modelActive"
+        class="flex absolute top-0 left-0 w-full h-screen justify-center px-8 bg-black bg-opacity-30"
+      >
+        <Transition name="fade-inner">
+          <div
+            v-if="modelActive"
+            class="p-4 mt-32 max-w-screen-md self-start bg-white"
+          >
+            <slot />
+            <div class="flex justify-end">
+              <button
+                class="mt-8 py-2 px-6 text-white bg-weather-primary"
+                @click="$emit('close-model')"
+              >
+                關閉說明
+              </button>
+            </div>
           </div>
-        </div>
-      </Transition>
-    </div>
-  </Transition>
+        </Transition>
+      </div>
+    </Transition>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
