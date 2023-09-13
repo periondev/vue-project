@@ -24,23 +24,25 @@
         >
       </li>
     </ul>
+    <!-- <WeatherTable /> -->
   </main>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
 import locationData from '../location.json';
-import { useLocationStore } from '@/store/store';
+import { useStore } from '@/store/store';
 import type { History } from '@/types';
-console.log(locationData);
+import WeatherTable from '@/components/WeatherDisplay.vue';
 
 export default defineComponent({
   name: 'Home',
+  components: { WeatherTable },
   setup() {
     // 讀取location全局狀態
-    const locationStore = useLocationStore();
+    const store = useStore();
     // 視需要重設全局store狀態
-    //locationStore.resetAllStores();
+    //store.resetAllStores();
 
     // 從locationData讀取所有縣市資料
     const cities = ref(locationData);
@@ -50,6 +52,18 @@ export default defineComponent({
     const selectedCity = ref(cities.value[0].name);
     // 選擇的鄉鎮市區
     const selectedRegion = ref(cities.value[0].regions[0]);
+    // 選擇的縣市dataID
+    const selectedCityDataId = ref(cities.value[0].dataId);
+
+    //fetchWeather()函數在組件掛載到 DOM 後執行一次，取得預設地區天氣資料。
+    onMounted(() => {
+      store.fetchWeather(
+        selectedCity.value,
+        selectedRegion.value,
+        selectedCityDataId.value
+      );
+      console.log(store.weather);
+    });
     // 根據選擇的縣市更新鄉鎮市區
     const updateRegions = () => {
       const city = cities.value.find((c) => c.name === selectedCity.value);
@@ -59,15 +73,27 @@ export default defineComponent({
       }
     };
 
-    // 點擊確認按鈕，將選擇的縣市和鄉鎮市區加入歷史紀錄
-    const confirm = () => {
-      locationStore.addHistory(selectedCity.value, selectedRegion.value);
+    // 點擊確認按鈕，將選擇的縣市和鄉鎮市區加入歷史紀錄，異步更新該地區天氣
+    const confirm = async () => {
+      store.addHistory(
+        selectedCity.value,
+        selectedRegion.value,
+        selectedCityDataId.value
+      );
+      await store.fetchWeather(
+        selectedCity.value,
+        selectedRegion.value,
+        selectedCityDataId.value
+      );
+      console.log(store.weather);
     };
-    // 點擊歷史紀錄欄位，更新選擇的縣市和鄉鎮市區
-    const updateFromHistory = (history: History) => {
+    // 點擊歷史紀錄欄位，更新選擇的縣市和鄉鎮市區，異步更新該地區天氣
+    const updateFromHistory = async (history: History) => {
       selectedCity.value = history.city;
       updateRegions();
       selectedRegion.value = history.region;
+      await store.fetchWeather(history.city, history.region, history.dataId);
+      console.log(store.weather);
     };
 
     return {
@@ -77,7 +103,7 @@ export default defineComponent({
       selectedRegion,
       updateRegions,
       confirm,
-      historyList: locationStore.history,
+      historyList: store.history,
       updateFromHistory,
     };
   },
