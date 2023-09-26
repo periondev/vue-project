@@ -25,6 +25,12 @@ export const useStore = defineStore('store', {
         }
       }
     },
+    // 清除最晚加入歷史紀錄的地區
+    removeHistory() {
+      if (this.history.length > 0) {
+        this.history.shift();
+      }
+    },
     async fetchWeather(city: string, region: string, dataId: string) {
       try {
         const response = await axios.get(
@@ -33,30 +39,31 @@ export const useStore = defineStore('store', {
           }&locationName=${region}&elementName=PoP12h,T,Wx`
         );
         //${encodeURIComponent(region)}
-        const data = response.data.records.locations[0].location[0];
-        console.log(response);
+        console.log(dataId);
+        console.log(city);
+        console.log(region);
+
+        const data =
+          response.data.records.locations[0].location[0].weatherElement;
         // 取得縣市及鄉鎮市區名稱並存進weatherData
         this.weatherData.cityName = city;
         this.weatherData.regionName = region;
-        // store.ts:61  TypeError: Cannot read properties of undefined (reading 'weatherElement')
-        // 新增條件判斷data.weatherElement存在
-        if (data && data.weatherElement) {
-          const weatherEl = data.weatherElement;
-          console.log(weatherEl);
+        // 判斷data存在之後
+        if (data) {
           // 從每天開始時間獲取日期陣列
-          this.weatherData.date = weatherEl[0].time.map(
+          this.weatherData.date = data[0].time.map(
             (item: any) => item.startTime
           );
           // 獲取一週降雨機率陣列
-          this.weatherData.dayPoP = weatherEl[0].time.map(
+          this.weatherData.dayPoP = data[0].time.map(
             (item: any) => item.elementValue[0].value
           );
           // 獲取一週平均氣溫陣列
-          this.weatherData.dayT = weatherEl[1].time.map(
+          this.weatherData.dayT = data[1].time.map(
             (item: any) => item.elementValue[0].value
           );
           // 獲取一週天氣描述陣列
-          this.weatherData.dayWx = weatherEl[2].time.map(
+          this.weatherData.dayWx = data[2].time.map(
             (item: any) => item.elementValue[0].value
           );
 
