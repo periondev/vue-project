@@ -1,5 +1,6 @@
 <template>
   <main class="container mx-auto p-4">
+    <!-- 選擇並輸入地區 -->
     <div class="flex justify-center min-w-36 items-center space-x-4 my-4">
       <select
         name="city"
@@ -30,30 +31,25 @@
         確認
       </button>
     </div>
-    <ul class="grid grid-cols-7 justify-items-center mb-4 text-cyan-200">
+    <!-- 地區歷史紀錄 -->
+    <ul class="grid grid-cols-3 mb-4 text-cyan-200">
       <li v-for="(history, index) in historyList" :key="index">
         <div class="relative p-3">
           <div
             @click="updateFromHistory(history)"
-            class="hover:text-white hover:border-white duration-150 cursor-pointer border border-cyan-200 rounded-lg py-3 px-4"
+            class="flex flex-wrap hover:text-white hover:border-white duration-150 cursor-pointer border border-cyan-200 rounded-lg py-2 px-3"
           >
-            <p>
-              {{ history.city }}
-            </p>
-            <p>
-              {{ history.region }}
-            </p>
+            <p>{{ history.city }}</p>
+            <p>{{ history.region }}</p>
           </div>
           <i
             @click="deleteItem(index)"
-            class="fa-solid fa-xmark hover:text-white duration-150 cursor-pointer absolute bottom-0 right-0"
+            class="fa-solid fa-circle-minus hover:text-white duration-150 cursor-pointer absolute bottom-0 right-0 m-2"
           ></i>
         </div>
       </li>
     </ul>
-    <div class="bg-weather-secondary p-4 rounded-lg">
-      <WeatherDisplay />
-    </div>
+    <WeatherDisplay />
   </main>
 </template>
 

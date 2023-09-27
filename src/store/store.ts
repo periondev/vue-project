@@ -19,8 +19,8 @@ export const useStore = defineStore('store', {
       if (!exist) {
         // 如果不存在，則將紀錄推入陣列的開頭
         this.history.unshift({ city, region, dataId });
-        // 如果紀錄超過7筆，則移除最後一筆
-        if (this.history.length > 7) {
+        // 如果紀錄超過6筆，則移除最後一筆
+        if (this.history.length > 6) {
           this.history.pop();
         }
       }
