@@ -25,10 +25,10 @@ export const useStore = defineStore('store', {
         }
       }
     },
-    // 清除最晚加入歷史紀錄的地區
-    removeHistory() {
+    // 清除歷史紀錄中所選的地區
+    deleteFromHistory(index: any) {
       if (this.history.length > 0) {
-        this.history.shift();
+        this.history.splice(index, 1);
       }
     },
     async fetchWeather(city: string, region: string, dataId: string) {

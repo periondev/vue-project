@@ -6,27 +6,49 @@
         title="select city"
         v-model="selectedCity"
         @change="updateRegions"
+        class="rounded-lg px-4 py-2"
       >
         <option v-for="city in cities" :key="city.dataId" :value="city.name">
           {{ city.name }}
         </option>
       </select>
-      <select name="region" title="select region" v-model="selectedRegion">
+      <select
+        name="region"
+        title="select region"
+        v-model="selectedRegion"
+        class="rounded-lg px-4 py-2"
+      >
         <option v-for="region in regions" :key="region" :value="region">
           {{ region }}
         </option>
       </select>
-      <button type="submit" @click="confirm">確認</button>
-      <button type="submit" @click="remove">清除</button>
+      <button
+        type="submit"
+        @click="confirm"
+        class="text-white bg-violet-700 hover:bg-violet-800 rounded-lg px-4 py-2"
+      >
+        確認
+      </button>
     </div>
-    <ul class="grid grid-cols-7 justify-items-center mb-4">
+    <ul class="grid grid-cols-7 justify-items-center mb-4 text-cyan-200">
       <li v-for="(history, index) in historyList" :key="index">
-        <span
-          @click="updateFromHistory(history)"
-          class="cursor-pointer text-white"
-        >
-          {{ history.city }}-{{ history.region }}
-        </span>
+        <div class="relative p-3">
+          <div
+            @click="updateFromHistory(history)"
+            class="hover:text-white hover:border-white duration-150 cursor-pointer border border-cyan-200 rounded-lg py-3 px-4"
+          >
+            <p>
+              {{ history.city }}
+            </p>
+            <p>
+              {{ history.region }}
+            </p>
+          </div>
+          <i
+            @click="deleteItem(index)"
+            class="fa-solid fa-xmark hover:text-white duration-150 cursor-pointer absolute bottom-0 right-0"
+          ></i>
+        </div>
       </li>
     </ul>
     <div class="bg-weather-secondary p-4 rounded-lg">
@@ -50,12 +72,6 @@ export default defineComponent({
     // 視需要重設全局store狀態
     //store.resetAllStores();
 
-    // 清除最晚加入歷史紀錄的地區
-    const remove = () => {
-      store.removeHistory();
-    };
-
-    console.log(store.history);
     // 從locationData讀取所有縣市資料
     const cities = locationData;
     const regions = ref(cities[0].regions);
@@ -89,6 +105,7 @@ export default defineComponent({
         selectedRegion.value,
         selectedCityDataId.value
       );
+      console.log(store.weatherData);
     };
     // 點擊歷史紀錄欄位，更新選擇的縣市和鄉鎮市區，異步更新該地區天氣
     const updateFromHistory = async (history: History) => {
@@ -97,6 +114,12 @@ export default defineComponent({
       updateRegions();
       selectedRegion.value = history.region;
       await store.fetchWeather(history.city, history.region, history.dataId);
+      console.log(store.weatherData);
+    };
+
+    // 點擊刪除歷史紀錄中所選的地區
+    const deleteItem = (index: number) => {
+      store.deleteFromHistory(index);
     };
 
     return {
@@ -108,7 +131,7 @@ export default defineComponent({
       confirm,
       historyList: store.history,
       updateFromHistory,
-      remove,
+      deleteItem,
     };
   },
 });
