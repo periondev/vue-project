@@ -4,29 +4,21 @@ export interface History {
   region: string;
   dataId: string;
 }
-
-// 定義天氣預報的介面 from weatherElement
-// 每隔12小時資料，每個天氣元素都有2*7=14筆資料(查詢時間區段跨夜(after 18:00)造成多出第一筆資料)
-// 依照時間序排列早、晚天氣元素
+// 大致天氣資料
 export interface WeatherData {
   cityName: string;
   regionName: string;
+  elements: Elements[];
+}
+// 重新排序後每天的天氣元素資料格式，每個天氣元素含有日與夜兩筆資料
+export interface Elements {
   date: string[];
-  dayPoP: string[];
-  dayT: string[];
-  dayWx: string[];
+  pop: string[];
+  t: string[];
+  wx: string[];
 }
 
-// startTime: string; // 預報開始時間
-// endTime: string; // 預報結束時間
-// description: string; // 天氣現象描述
-// weatherIcon: number; // 天氣圖示代碼
-// parameterName: string; // 天氣現象描述
-// temperature: number; // 溫度
-
-// T: string[]; // 平均溫度
-// MaxT: string[]; // 最高溫度
-// MinT: string[]; // 最低溫度
-// RH: string[]; // 相對濕度
-// Wx: string[]; // 天氣現象
-// PoP12h: string[]; // 降雨機率
+// T // 平均溫度
+// RH // 相對濕度
+// Wx // 天氣現象
+// PoP12h // 降雨機率
