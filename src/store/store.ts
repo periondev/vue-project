@@ -1,5 +1,5 @@
 import { defineStore, getActivePinia } from 'pinia';
-import type { History, WeatherData } from '@/types';
+import type { History, WeatherData, Elements } from '@/types';
 import axios from 'axios';
 
 export const useStore = defineStore('store', {
@@ -7,6 +7,7 @@ export const useStore = defineStore('store', {
   state: () => ({
     history: <History[]>[],
     weatherData: {} as WeatherData,
+    elements: <Elements[]>[],
   }),
   // 定義方法
   actions: {
@@ -38,11 +39,7 @@ export const useStore = defineStore('store', {
             import.meta.env.VITE_API
           }&locationName=${region}&elementName=PoP12h,T,Wx`
         );
-        //${encodeURIComponent(region)}
-        console.log(dataId);
-        console.log(city);
-        console.log(region);
-
+        // 將由API獲取的大致資料存進data
         const data =
           response.data.records.locations[0].location[0].weatherElement;
         // 取得縣市及鄉鎮市區名稱並存進weatherData
@@ -50,39 +47,41 @@ export const useStore = defineStore('store', {
         this.weatherData.regionName = region;
         // 判斷data存在之後
         if (data) {
-          // 從每天開始時間獲取日期陣列
-          this.weatherData.date = data[0].time.map(
-            (item: any) => item.startTime
-          );
+          // 獲取一週每天開始時間的陣列
+          const dateArr = data[0].time.map((item: any) => item.startTime);
           // 獲取一週降雨機率陣列
-          this.weatherData.dayPoP = data[0].time.map(
+          const popArr = data[0].time.map(
             (item: any) => item.elementValue[0].value
           );
           // 獲取一週平均氣溫陣列
-          this.weatherData.dayT = data[1].time.map(
+          const tArr = data[1].time.map(
             (item: any) => item.elementValue[0].value
           );
           // 獲取一週天氣描述陣列
-          this.weatherData.dayWx = data[2].time.map(
+          const wxArr = data[2].time.map(
             (item: any) => item.elementValue[0].value
           );
-
           // 排除陣列第一筆資料:因查詢時間區段跨夜(After 18:00)造成第一筆為過時資料
-          if (this.weatherData.date.length > 14) {
-            this.weatherData.date.shift();
+          dateArr.length > 14 ? dateArr.shift() : dateArr;
+          popArr.length > 14 ? popArr.shift() : popArr;
+          tArr > 14 ? tArr.shift() : tArr;
+          wxArr > 14 ? wxArr.shift() : wxArr;
+          // 將所有天氣元素按照一週時間排序集合成七個物件儲存於陣列中
+          // 使用遞歸方式將數個陣列轉換為數個物件儲存於陣列格式
+          for (let i = 0; i < 7; i++) {
+            this.elements[i] = {
+              date: [dateArr[i * 2], dateArr[i * 2 + 1]],
+              pop: [popArr[i * 2], popArr[i * 2 + 1]],
+              t: [tArr[i * 2], tArr[i * 2 + 1]],
+              wx: [wxArr[i * 2], wxArr[i * 2 + 1]],
+            };
           }
-          if (this.weatherData.dayPoP.length > 14) {
-            this.weatherData.dayPoP.shift();
-          }
-          if (this.weatherData.dayT.length > 14) {
-            this.weatherData.dayT.shift();
-          }
-          if (this.weatherData.dayWx.length > 14) {
-            this.weatherData.dayWx.shift();
-          }
+          console.log(this.elements);
+
           // 取得今日時間
           //const todayDate = new Date().toString().split('GMT')[0];
         }
+        console.log(this.weatherData);
       } catch (error) {
         console.error(error);
       }

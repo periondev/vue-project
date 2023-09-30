@@ -1,51 +1,40 @@
 <template>
-  <div class="bg-weather-secondary p-4 rounded-lg">
-    <div class="flex justify-between">
-      <h1 class="text-2xl font-bold mb-4">未來一週天氣預報</h1>
-      <h2 class="text-xl mb-4">
-        {{ weatherList.cityName }} -- {{ weatherList.regionName }}
-      </h2>
+  <div class="bg-weather-secondary p-2 mx-auto">
+    <div class="flex justify-center align-center text-xl font-bold mb-4">
+      <h1>
+        {{ weatherList.cityName }} -
+        {{ weatherList.regionName }} 未來一週天氣預報
+      </h1>
     </div>
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-6">
       <div
         class="grid grid-cols-5 justify-items-center items-center py-2 rounded-lg bg-weather-primary text-white"
-        v-for="(key, value, index) in weatherList"
-        :key="index"
+        v-for="el in elementItems"
       >
         <p>星期幾</p>
         <div>
-          <div>{{ index * 2 }} | {{ weatherList.date[index * 2] }}</div>
-          <div>{{ index * 2 + 1 }} | {{ weatherList.date[index * 2 + 1] }}</div>
+          <div>{{ el.date[0] }}</div>
+          <div>{{ el.date[1] }}</div>
         </div>
         <div>
           <div>
-            {{ index * 2 }}
-            <i
-              :class="getIcon(weatherList.dayWx[index * 2])"
-              alt=""
-              width="64"
-              height="64"
-            />
-            {{ weatherList.dayWx[index * 2] }}
+            <i :class="getIcon(el.wx[0])" alt="" width="64" height="64">
+              {{ el.wx[0] }}
+            </i>
           </div>
           <div>
-            {{ index * 2 + 1 }}
-            <i
-              :class="getIcon(weatherList.dayWx[index * 2 + 1])"
-              alt=""
-              width="64"
-              height="64"
-            />
-            {{ weatherList.dayWx[index * 2 + 1] }}
+            <i :class="getIcon(el.wx[1])" alt="" width="64" height="64">
+              {{ el.wx[1] }}
+            </i>
           </div>
         </div>
         <div>
-          <div>{{ weatherList.dayT[index * 2] }} °C</div>
-          <div>{{ weatherList.dayT[index * 2 + 1] }} °C</div>
+          <div>{{ el.t[0] }} °C</div>
+          <div>{{ el.t[1] }} °C</div>
         </div>
         <div>
-          <div>{{ weatherList.dayPoP[index * 2] }} %</div>
-          <div>{{ weatherList.dayPoP[index * 2 + 1] }} %</div>
+          <div>{{ el.pop[0] }} %</div>
+          <div>{{ el.pop[1] }} %</div>
         </div>
       </div>
     </div>
@@ -59,7 +48,6 @@ export default defineComponent({
   name: 'WeatherDisplay',
   setup() {
     const store = useStore();
-    //const weatherList = ref(store.weatherData)
     // 根據天氣現象回傳對應的fontawesome圖標
     const getIcon = (wx: string) => {
       switch (wx) {
@@ -87,9 +75,9 @@ export default defineComponent({
           return '';
       }
     };
-
     return {
       weatherList: store.weatherData,
+      elementItems: store.elements,
       getIcon,
     };
   },

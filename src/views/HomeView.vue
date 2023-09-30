@@ -49,8 +49,8 @@
         </div>
       </li>
     </ul>
-    <WeatherDisplay />
   </main>
+  <WeatherDisplay />
 </template>
 
 <script lang="ts">
@@ -67,7 +67,7 @@ export default defineComponent({
     const store = useStore();
     // 視需要重設全局store狀態
     //store.resetAllStores();
-
+    console.log(store.weatherData);
     // 從locationData讀取所有縣市資料
     const cities = locationData;
     const regions = ref(cities[0].regions);
