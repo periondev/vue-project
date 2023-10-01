@@ -7,7 +7,7 @@
         title="select city"
         v-model="selectedCity"
         @change="updateRegions"
-        class="rounded-lg px-4 py-2"
+        class="rounded-full px-4 py-2"
       >
         <option v-for="city in cities" :key="city.dataId" :value="city.name">
           {{ city.name }}
@@ -17,7 +17,7 @@
         name="region"
         title="select region"
         v-model="selectedRegion"
-        class="rounded-lg px-4 py-2"
+        class="rounded-full px-4 py-2"
       >
         <option v-for="region in regions" :key="region" :value="region">
           {{ region }}
@@ -26,7 +26,7 @@
       <button
         type="submit"
         @click="confirm"
-        class="text-white bg-violet-700 hover:bg-violet-800 rounded-lg px-4 py-2"
+        class="text-white bg-violet-700 hover:bg-violet-800 rounded-full px-4 py-2"
       >
         確認
       </button>
@@ -34,17 +34,17 @@
     <!-- 地區歷史紀錄 -->
     <ul class="grid grid-cols-3 mb-4 text-cyan-200">
       <li v-for="(history, index) in historyList" :key="index">
-        <div class="relative p-3">
+        <div class="relative p-2">
           <div
             @click="updateFromHistory(history)"
-            class="flex flex-wrap hover:text-white hover:border-white duration-150 cursor-pointer border border-cyan-200 rounded-lg py-2 px-3"
+            class="flex flex-wrap text-sm p-2 justify-center rounded-full hover:text-white hover:border-white duration-150 cursor-pointer border border-cyan-200"
           >
             <p>{{ history.city }}</p>
             <p>{{ history.region }}</p>
           </div>
           <i
             @click="deleteItem(index)"
-            class="fa-solid fa-circle-minus hover:text-white duration-150 cursor-pointer absolute bottom-0 right-0 m-2"
+            class="fa-solid fa-circle-minus hover:text-white duration-150 cursor-pointer absolute bottom-0 right-0 pr-1 pb-1"
           ></i>
         </div>
       </li>

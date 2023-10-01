@@ -13,7 +13,7 @@
             <slot />
             <div class="flex justify-end">
               <button
-                class="mt-8 py-2 px-6 text-white bg-weather-primary"
+                class="mt-8 py-2 px-6 rounded-full text-white bg-weather-primary"
                 @click="$emit('close-model')"
               >
                 關閉說明
