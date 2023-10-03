@@ -2,22 +2,26 @@
   <div class="bg-weather-secondary p-2 mx-auto">
     <div class="flex justify-center align-center text-xl font-bold mb-4">
       <h1>
-        {{ weatherList.cityName }} -
-        {{ weatherList.regionName }} 未來一週天氣預報
+        {{ weatherList.cityName }}{{ weatherList.regionName }} -
+        未來一週天氣預報
       </h1>
     </div>
-    <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap-6 text-center">
       <div
-        class="grid grid-cols-6 justify-items-center items-center py-2 rounded-lg bg-weather-primary text-white"
+        class="grid grid-cols-5 justify-items-center items-center py-2 rounded-lg bg-weather-primary text-white"
         v-for="el in elementItems"
       >
-        <p>{{ el.dayOfWeek }}</p>
-        <p>{{ el.date }}</p>
         <div>
+          <p>{{ el.dayOfWeek }}</p>
+          <p>{{ el.date }}</p>
+        </div>
+        <div>
+          <p class="text-sm">時間</p>
           <div>{{ el.time[0] }}</div>
           <div>{{ el.time[1] }}</div>
         </div>
         <div>
+          <p class="text-sm">天氣現象</p>
           <div>
             <i :class="getIcon(el.wx[0])" alt="" width="64" height="64">
               {{ el.wx[0] }}
@@ -30,12 +34,14 @@
           </div>
         </div>
         <div>
+          <p class="text-sm">平均溫度</p>
           <div>{{ el.t[0] }} °C</div>
           <div>{{ el.t[1] }} °C</div>
         </div>
         <div>
-          <div>{{ el.pop[0] }} %</div>
-          <div>{{ el.pop[1] }} %</div>
+          <p class="text-sm">降雨機率</p>
+          <div>{{ el.pop[0] === ' ' ? '-' : el.pop[0] }} %</div>
+          <div>{{ el.pop[1] === ' ' ? '-' : el.pop[1] }} %</div>
         </div>
       </div>
     </div>

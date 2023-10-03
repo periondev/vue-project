@@ -101,7 +101,6 @@ export default defineComponent({
         selectedRegion.value,
         selectedCityDataId.value
       );
-      //console.log(store.weatherData);
     };
     // 點擊歷史紀錄欄位，更新選擇的縣市和鄉鎮市區，異步更新該地區天氣
     const updateFromHistory = async (history: History) => {
@@ -110,7 +109,6 @@ export default defineComponent({
       updateRegions();
       selectedRegion.value = history.region;
       await store.fetchWeather(history.city, history.region, history.dataId);
-      console.log(store.weatherData);
     };
 
     // 點擊刪除歷史紀錄中所選的地區

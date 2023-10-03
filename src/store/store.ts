@@ -2,14 +2,16 @@ import { defineStore, getActivePinia } from 'pinia';
 import type { History, WeatherData, Elements } from '@/types';
 import axios from 'axios';
 import moment from 'moment';
-import 'moment/locale/zh-tw';
-moment.locale('zh-tw');
+moment.updateLocale('zh-tw', {
+  weekdays: '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
+});
+
 export const useStore = defineStore('store', {
   // 定義狀態
   state: () => ({
     history: <History[]>[],
     weatherData: {} as WeatherData,
-    elements: <Elements[]>[],
+    elements: <Elements[]>[], //一週天氣元素按照時間排序集合儲存於陣列中
   }),
   // 定義方法
   actions: {
@@ -65,18 +67,19 @@ export const useStore = defineStore('store', {
             (item: any) => item.elementValue[0].value
           );
 
-          // 獲取星期幾
-
           // 排除陣列第一筆資料:因查詢時間區段跨夜(After 18:00)造成第一筆為過時資料
           dateArr.length > 14 ? dateArr.shift() : dateArr;
           popArr.length > 14 ? popArr.shift() : popArr;
-          tArr > 14 ? tArr.shift() : tArr;
-          wxArr > 14 ? wxArr.shift() : wxArr;
-          // 將所有天氣元素按照一週時間排序集合成七個物件儲存於陣列中
+          tArr.length > 14 ? tArr.shift() : tArr;
+          wxArr.length > 14 ? wxArr.shift() : wxArr;
+
           // 使用遞歸方式將數個陣列轉換為數個物件儲存於陣列格式
           for (let i = 0; i < 7; i++) {
+            // 格式化星期幾、日期、時間
             const day = moment(dateArr[i * 2]);
-            const date = dateArr.map((d: string) => d.split(' ')[0]);
+            const date = dateArr.map((d: string) =>
+              d.split(' ')[0].split('-').slice(1).join('/')
+            );
             const time = dateArr.map((d: string) => d.split(' ')[1]);
             this.elements[i] = {
               dayOfWeek: day.locale('zh-tw').format('dddd'),
@@ -88,13 +91,7 @@ export const useStore = defineStore('store', {
             };
           }
           console.log(this.elements);
-
-          // 使用moment從日期轉換為星期幾:
-          // const date = moment('2023-10-02 12:00:00');
-          // const dayOfWeek = date.locale('zh-tw').format('dddd');
-          // console.log(dayOfWeek);
         }
-        //console.log(this.weatherData);
       } catch (error) {
         console.error(error);
       }
