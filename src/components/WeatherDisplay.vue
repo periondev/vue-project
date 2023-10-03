@@ -8,13 +8,14 @@
     </div>
     <div class="flex flex-col gap-6">
       <div
-        class="grid grid-cols-5 justify-items-center items-center py-2 rounded-lg bg-weather-primary text-white"
+        class="grid grid-cols-6 justify-items-center items-center py-2 rounded-lg bg-weather-primary text-white"
         v-for="el in elementItems"
       >
-        <p>星期幾</p>
+        <p>{{ el.dayOfWeek }}</p>
+        <p>{{ el.date }}</p>
         <div>
-          <div>{{ el.date[0] }}</div>
-          <div>{{ el.date[1] }}</div>
+          <div>{{ el.time[0] }}</div>
+          <div>{{ el.time[1] }}</div>
         </div>
         <div>
           <div>

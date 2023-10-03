@@ -12,7 +12,9 @@ export interface WeatherData {
 }
 // 重新排序後每天的天氣元素資料格式，每個天氣元素含有日與夜兩筆資料
 export interface Elements {
-  date: string[];
+  dayOfWeek: string;
+  date: string;
+  time: string[];
   pop: string[];
   t: string[];
   wx: string[];

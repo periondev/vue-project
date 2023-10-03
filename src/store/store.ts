@@ -1,7 +1,9 @@
 import { defineStore, getActivePinia } from 'pinia';
 import type { History, WeatherData, Elements } from '@/types';
 import axios from 'axios';
-
+import moment from 'moment';
+import 'moment/locale/zh-tw';
+moment.locale('zh-tw');
 export const useStore = defineStore('store', {
   // 定義狀態
   state: () => ({
@@ -42,6 +44,7 @@ export const useStore = defineStore('store', {
         // 將由API獲取的大致資料存進data
         const data =
           response.data.records.locations[0].location[0].weatherElement;
+        console.log(data);
         // 取得縣市及鄉鎮市區名稱並存進weatherData
         this.weatherData.cityName = city;
         this.weatherData.regionName = region;
@@ -61,6 +64,9 @@ export const useStore = defineStore('store', {
           const wxArr = data[2].time.map(
             (item: any) => item.elementValue[0].value
           );
+
+          // 獲取星期幾
+
           // 排除陣列第一筆資料:因查詢時間區段跨夜(After 18:00)造成第一筆為過時資料
           dateArr.length > 14 ? dateArr.shift() : dateArr;
           popArr.length > 14 ? popArr.shift() : popArr;
@@ -69,8 +75,13 @@ export const useStore = defineStore('store', {
           // 將所有天氣元素按照一週時間排序集合成七個物件儲存於陣列中
           // 使用遞歸方式將數個陣列轉換為數個物件儲存於陣列格式
           for (let i = 0; i < 7; i++) {
+            const day = moment(dateArr[i * 2]);
+            const date = dateArr.map((d: string) => d.split(' ')[0]);
+            const time = dateArr.map((d: string) => d.split(' ')[1]);
             this.elements[i] = {
-              date: [dateArr[i * 2], dateArr[i * 2 + 1]],
+              dayOfWeek: day.locale('zh-tw').format('dddd'),
+              date: date[i * 2],
+              time: [time[i * 2], time[i * 2 + 1]],
               pop: [popArr[i * 2], popArr[i * 2 + 1]],
               t: [tArr[i * 2], tArr[i * 2 + 1]],
               wx: [wxArr[i * 2], wxArr[i * 2 + 1]],
@@ -78,10 +89,12 @@ export const useStore = defineStore('store', {
           }
           console.log(this.elements);
 
-          // 取得今日時間
-          //const todayDate = new Date().toString().split('GMT')[0];
+          // 使用moment從日期轉換為星期幾:
+          // const date = moment('2023-10-02 12:00:00');
+          // const dayOfWeek = date.locale('zh-tw').format('dddd');
+          // console.log(dayOfWeek);
         }
-        console.log(this.weatherData);
+        //console.log(this.weatherData);
       } catch (error) {
         console.error(error);
       }

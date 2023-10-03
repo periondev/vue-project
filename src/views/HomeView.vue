@@ -67,7 +67,7 @@ export default defineComponent({
     const store = useStore();
     // 視需要重設全局store狀態
     //store.resetAllStores();
-    console.log(store.weatherData);
+    //console.log(store.weatherData);
     // 從locationData讀取所有縣市資料
     const cities = locationData;
     const regions = ref(cities[0].regions);
@@ -101,7 +101,7 @@ export default defineComponent({
         selectedRegion.value,
         selectedCityDataId.value
       );
-      console.log(store.weatherData);
+      //console.log(store.weatherData);
     };
     // 點擊歷史紀錄欄位，更新選擇的縣市和鄉鎮市區，異步更新該地區天氣
     const updateFromHistory = async (history: History) => {
