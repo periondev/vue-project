@@ -90,7 +90,9 @@ export const useStore = defineStore('store', {
             const date = dateArr.map((d: string) =>
               d.split(' ')[0].split('-').slice(1).join('/')
             );
-            const time = dateArr.map((d: string) => d.split(' ')[1]);
+            const time = dateArr.map((d: string) =>
+              d.split(' ')[1].slice(0, 5)
+            );
             this.elements[i] = {
               dayOfWeek: day.locale('zh-tw').format('dddd'),
               date: date[i * 2],

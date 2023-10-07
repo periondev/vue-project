@@ -1,13 +1,13 @@
 <template>
   <main class="container mx-auto p-4">
-    <!-- 選擇並輸入地區 -->
+    <!-- 選擇地區 -->
     <div class="flex justify-center min-w-36 items-center space-x-4 my-4">
       <select
         name="city"
         title="select city"
         v-model="selectedCity"
         @change="updateRegions"
-        class="rounded-full px-5 py-2"
+        class="rounded-full px-5 py-1.5"
       >
         <option v-for="city in cities" :key="city.dataId" :value="city.name">
           {{ city.name }}
@@ -17,34 +17,38 @@
         name="region"
         title="select region"
         v-model="selectedRegion"
-        class="rounded-full px-5 py-2"
+        class="rounded-full px-5 py-1.5"
       >
         <option v-for="region in regions" :key="region" :value="region">
           {{ region }}
         </option>
       </select>
       <button
-        type="submit"
+        type="button"
         @click="confirm"
-        class="text-white font-bold bg-sky-600 hover:bg-sky-700 rounded-full px-3 py-2"
+        class="text-white bg-sky-600 hover:bg-sky-700 rounded-full px-3 py-1.5"
       >
         查詢
       </button>
     </div>
     <!-- 地區歷史紀錄 -->
-    <ul class="grid grid-cols-3 mb-4">
+    <ul class="grid grid-cols-3 gap-x-4 mb-4">
       <li v-for="(history, index) in historyList" :key="index">
-        <div class="relative p-2 text-white hover:text-sky-300">
+        <div class="relative py-2 text-sky-100">
           <div
             @click="updateFromHistory(history)"
-            class="flex flex-wrap text-sm p-2 justify-center rounded-full duration-150 cursor-pointer border hover:border-sky-300"
+            class="rounded-full duration-150 cursor-pointer border border-sky-100"
           >
-            <p>{{ history.city }}</p>
-            <p>{{ history.region }}</p>
+            <span
+              class="flex flex-wrap text-sm py-1.5 justify-center hover:scale-110 duration-150"
+            >
+              <p>{{ history.city }}</p>
+              <p>{{ history.region }}</p>
+            </span>
           </div>
           <i
             @click="deleteItem(index)"
-            class="fa-solid fa-circle-minus duration-150 cursor-pointer absolute bottom-0 right-0 pr-1 pb-1"
+            class="fa-solid fa-circle-minus duration-150 cursor-pointer absolute bottom-0 right-0 hover:scale-125"
           ></i>
         </div>
       </li>
@@ -68,6 +72,7 @@ export default defineComponent({
     // 視需要重設全局store狀態
     //store.resetAllStores();
     //console.log(store.weatherData);
+
     // 從locationData讀取所有縣市資料
     const cities = locationData;
     const regions = ref(cities[0].regions);
@@ -79,6 +84,7 @@ export default defineComponent({
     onMounted(() => {
       store.fetchWeather('宜蘭縣', '羅東鎮', 'F-D0047-003');
     });
+
     // 根據選擇的縣市更新鄉鎮市區清單，更新縣市並顯示鄉鎮市區第一位
     const updateRegions = () => {
       const city = cities.find((c) => c.name === selectedCity.value);
@@ -102,6 +108,7 @@ export default defineComponent({
         selectedCityDataId.value
       );
     };
+
     // 點擊歷史紀錄欄位，更新選擇的縣市和鄉鎮市區，異步更新該地區天氣
     const updateFromHistory = async (history: History) => {
       selectedCity.value = history.city;

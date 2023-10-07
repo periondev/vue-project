@@ -1,46 +1,66 @@
 <template>
   <div
-    class="flex justify-center align-center text-xl font-bold my-4 p-2 text-white rounded-lg bg-sky-600"
+    class="flex justify-center align-center text-xl font-bold my-4 p-3 text-white rounded-lg bg-sky-600"
   >
-    <h1>
-      {{ weatherList.cityName }}{{ weatherList.regionName }} - 未來一週天氣預報
-    </h1>
+    <h1>{{ weatherList.cityName }}{{ weatherList.regionName }}一週天氣預報</h1>
   </div>
-  <div class="flex flex-col gap-6 text-center">
+  <div
+    class="grid grid-cols-6 py-2 justify-items-center text-center font-bold text-sm text-white"
+  >
+    <p>日期</p>
+    <p>時間</p>
+    <p>天氣現象</p>
+    <p>平均溫度</p>
+    <p>平均濕度</p>
+    <p>降雨機率</p>
+  </div>
+  <div class="flex flex-col gap-6">
     <div
-      class="grid grid-cols-5 justify-items-center items-center py-2 rounded-lg bg-weather-secondary text-white"
+      class="grid grid-cols-6 justify-items-center items-center text-center py-2 rounded-lg bg-weather-secondary text-white"
       v-for="el in elementItems"
     >
-      <div>
+      <span>
         <p>{{ el.dayOfWeek }}</p>
         <p>{{ el.date }}</p>
-      </div>
+      </span>
+      <span>
+        <p>{{ el.time[0] }}</p>
+        <p>{{ el.time[1] }}</p>
+      </span>
       <div>
-        <p class="text-sm">時間</p>
-        <div>{{ el.time[0] }}</div>
-        <div>{{ el.time[1] }}</div>
+        <span>
+          <i
+            :class="getIcon(el.wx[0])"
+            :title="el.wx[0]"
+            width="64"
+            height="64"
+          >
+          </i>
+          <p class="text-sm">{{ el.wx[0] }}</p>
+        </span>
+        <span>
+          <i
+            :class="getIcon(el.wx[1])"
+            :title="el.wx[1]"
+            width="64"
+            height="64"
+          >
+          </i>
+          <p class="text-sm">{{ el.wx[1] }}</p>
+        </span>
       </div>
-      <div>
-        <p class="text-sm">天氣現象</p>
-        <div>
-          <i :class="getIcon(el.wx[0])" alt="" width="64" height="64"> </i>
-          {{ el.wx[0] }}
-        </div>
-        <div>
-          <i :class="getIcon(el.wx[1])" alt="" width="64" height="64"> </i>
-          {{ el.wx[1] }}
-        </div>
-      </div>
-      <div>
-        <p class="text-sm">平均溫度</p>
-        <div>{{ el.t[0] }} °C</div>
-        <div>{{ el.t[1] }} °C</div>
-      </div>
-      <div>
-        <p class="text-sm">降雨機率</p>
-        <div>{{ el.pop[0] === ' ' ? '-' : el.pop[0] }} %</div>
-        <div>{{ el.pop[1] === ' ' ? '-' : el.pop[1] }} %</div>
-      </div>
+      <span>
+        <p>{{ el.t[0] }} °C</p>
+        <p>{{ el.t[1] }} °C</p>
+      </span>
+      <span>
+        <p>{{ el.rh[0] }} %</p>
+        <p>{{ el.rh[1] }} %</p>
+      </span>
+      <span>
+        <p>{{ el.pop[0] === ' ' ? '-' : el.pop[0] }} %</p>
+        <p>{{ el.pop[1] === ' ' ? '-' : el.pop[1] }} %</p>
+      </span>
     </div>
   </div>
 </template>

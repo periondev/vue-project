@@ -9,7 +9,7 @@
       </RouterLink>
       <div class="flex flex-1 gap-3 justify-end">
         <i
-          class="fa-solid fa-circle-info text-xl hover:text-weather-secondary duration-150 cursor-pointer"
+          class="fa-solid fa-circle-info text-2xl hover:scale-110 duration-150 cursor-pointer"
           @click="toggleBaseModel"
         ></i>
       </div>
