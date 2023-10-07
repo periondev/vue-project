@@ -17,6 +17,7 @@ export interface Elements {
   time: string[];
   pop: string[];
   t: string[];
+  rh: string[];
   wx: string[];
 }
 

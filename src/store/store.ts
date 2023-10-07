@@ -39,11 +39,16 @@ export const useStore = defineStore('store', {
     async fetchWeather(city: string, region: string, dataId: string) {
       try {
         const response = await axios.get(
-          `https://opendata.cwa.gov.tw/api/v1/rest/datastore/${dataId}?Authorization=${
-            import.meta.env.VITE_API
-          }&locationName=${region}&elementName=PoP12h,T,Wx`
+          `https://opendata.cwa.gov.tw/api/v1/rest/datastore/${dataId}?`,
+          {
+            params: {
+              Authorization: import.meta.env.VITE_API,
+              locationName: region,
+              elementName: 'PoP12h,T,RH,Wx',
+            },
+          }
         );
-        // 將由API獲取的大致資料存進data
+        // 將由API獲取的指定天氣因子資料存進data
         const data =
           response.data.records.locations[0].location[0].weatherElement;
         console.log(data);
@@ -62,8 +67,12 @@ export const useStore = defineStore('store', {
           const tArr = data[1].time.map(
             (item: any) => item.elementValue[0].value
           );
+          // 獲取一週平均相對濕度陣列
+          const rhArr = data[2].time.map(
+            (item: any) => item.elementValue[0].value
+          );
           // 獲取一週天氣描述陣列
-          const wxArr = data[2].time.map(
+          const wxArr = data[3].time.map(
             (item: any) => item.elementValue[0].value
           );
 
@@ -71,6 +80,7 @@ export const useStore = defineStore('store', {
           dateArr.length > 14 ? dateArr.shift() : dateArr;
           popArr.length > 14 ? popArr.shift() : popArr;
           tArr.length > 14 ? tArr.shift() : tArr;
+          rhArr.length > 14 ? rhArr.shift() : rhArr;
           wxArr.length > 14 ? wxArr.shift() : wxArr;
 
           // 使用遞歸方式將數個陣列轉換為數個物件儲存於陣列格式
@@ -87,6 +97,7 @@ export const useStore = defineStore('store', {
               time: [time[i * 2], time[i * 2 + 1]],
               pop: [popArr[i * 2], popArr[i * 2 + 1]],
               t: [tArr[i * 2], tArr[i * 2 + 1]],
+              rh: [rhArr[i * 2], rhArr[i * 2 + 1]],
               wx: [wxArr[i * 2], wxArr[i * 2 + 1]],
             };
           }
