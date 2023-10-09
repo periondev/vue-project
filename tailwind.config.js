@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         'weather-primary': '#5b21b6',
-        'weather-secondary': '#7c3aed',
+        'weather-secondary': '#6d28d9',
       },
     },
     fontFamily: {

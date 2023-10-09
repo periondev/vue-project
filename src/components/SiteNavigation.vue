@@ -1,6 +1,6 @@
 <template>
   <header class="sticky top-0 z-20 shadow-lg bg-weather-primary">
-    <nav class="container flex flex-row items-center gap-4 text-white py-6">
+    <nav class="container flex flex-row items-center text-white py-6 px-3">
       <RouterLink :to="{ name: 'home' }">
         <div class="flex items-center gap-3">
           <i class="fa-solid fa-cloud-sun text-2xl"></i>
