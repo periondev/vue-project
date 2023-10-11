@@ -1,25 +1,25 @@
 <template>
   <div
-    class="flex justify-center align-center text-xl font-bold my-4 p-3 text-white rounded-lg bg-sky-700"
+    class="flex justify-center align-center text-xl my-4 py-2 text-white rounded-lg bg-weather-primary"
   >
     <h1>{{ weatherList.cityName }}{{ weatherList.regionName }}一週天氣預報</h1>
   </div>
   <div
-    class="grid grid-cols-7 py-2 justify-items-center text-center font-bold text-sm text-white"
+    class="grid grid-cols-7 py-2 justify-items-center text-center font-bold text-xs md:text-sm text-white"
   >
     <p>日期</p>
     <p>時間</p>
     <p class="col-span-2">天氣現象</p>
-    <p>平均溫度</p>
-    <p>平均濕度</p>
+    <p>濕度</p>
     <p>降雨機率</p>
+    <p>溫度</p>
   </div>
-  <div class="flex flex-col gap-6">
+  <div class="flex flex-col gap-3 md:gap-5">
     <div
-      class="grid grid-cols-7 justify-items-center items-center text-sm md:text-base py-2 rounded-lg bg-weather-secondary text-white"
+      class="grid grid-cols-7 justify-items-center items-center py-2 md:py-3 text-sm md:text-base rounded-lg bg-weather-secondary text-white"
       v-for="el in elementItems"
     >
-      <span>
+      <span class="text-center">
         <p>{{ el.date }}</p>
         <p>{{ el.dayOfWeek }}</p>
       </span>
@@ -27,22 +27,28 @@
         <p>{{ el.time[0] }}</p>
         <p>{{ el.time[1] }}</p>
       </span>
-      <div class="col-span-2">
-        <span class="flex py-1">
-          <i :class="getIcon(el.wx[0])" :alt="el.wx[0]" width="64" height="64">
+      <div class="col-span-2 gap-1">
+        <span class="flex flex-row gap-1 items-center">
+          <i
+            :class="getIcon(el.wx[0])"
+            :alt="el.wx[0]"
+            width="64"
+            height="auto"
+          >
           </i>
-          <p class="text-xs md:text-sm pl-1">{{ el.wx[0] }}</p>
+          <p>{{ el.wx[0] }}</p>
         </span>
-        <span class="flex py-1">
-          <i :class="getIcon(el.wx[1])" :alt="el.wx[1]" width="64" height="64">
+        <span class="flex flex-row gap-1 items-center">
+          <i
+            :class="getIcon(el.wx[1])"
+            :alt="el.wx[1]"
+            width="64"
+            height="auto"
+          >
           </i>
-          <p class="text-xs md:text-sm pl-1">{{ el.wx[1] }}</p>
+          <p>{{ el.wx[1] }}</p>
         </span>
       </div>
-      <span>
-        <p>{{ el.t[0] }} °C</p>
-        <p>{{ el.t[1] }} °C</p>
-      </span>
       <span>
         <p>{{ el.rh[0] }} %</p>
         <p>{{ el.rh[1] }} %</p>
@@ -50,6 +56,10 @@
       <span>
         <p>{{ el.pop[0] === ' ' ? '-' : el.pop[0] }} %</p>
         <p>{{ el.pop[1] === ' ' ? '-' : el.pop[1] }} %</p>
+      </span>
+      <span>
+        <p>{{ el.t[0] }} °C</p>
+        <p>{{ el.t[1] }} °C</p>
       </span>
     </div>
   </div>

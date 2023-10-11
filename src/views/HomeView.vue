@@ -1,5 +1,5 @@
 <template>
-  <main class="container mx-auto p-3">
+  <main class="container mx-auto p-4">
     <!-- 選擇地區 -->
     <div class="flex justify-center min-w-36 items-center space-x-4 my-4">
       <select
@@ -26,7 +26,7 @@
       <button
         type="button"
         @click="confirm"
-        class="text-white font-bold bg-sky-700 hover:bg-sky-600 rounded-full px-3 py-1.5"
+        class="font-bold text-white bg-confirm-btn hover:bg-confirm-btn-dark rounded-full px-3 py-1"
       >
         查詢
       </button>
