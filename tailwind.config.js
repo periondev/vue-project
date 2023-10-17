@@ -10,9 +10,6 @@ module.exports = {
         'confirm-btn-dark': '#15803d',
       },
     },
-    fontFamily: {
-      Roboto: ['Roboto, sans-serif'],
-    },
     container: {
       padding: '2rem',
       center: true,
