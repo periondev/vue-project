@@ -1,7 +1,7 @@
 <template>
   <main class="container mx-auto p-4">
-    <!-- 選擇地區 -->
     <div class="flex justify-center min-w-36 items-center space-x-4 my-4">
+      <!-- 選擇縣市 -->
       <select
         name="city"
         title="select city"
@@ -13,6 +13,7 @@
           {{ city.name }}
         </option>
       </select>
+      <!-- 選擇鄉鎮市區 -->
       <select
         name="region"
         title="select region"
@@ -61,7 +62,7 @@
 import { defineComponent, ref, onMounted } from 'vue';
 import locationData from '../location.json';
 import { useStore } from '@/store/store';
-import type { History, WeatherData } from '@/types';
+import type { History } from '@/types';
 import WeatherDisplay from '@/components/WeatherDisplay.vue';
 
 export default defineComponent({
@@ -69,23 +70,25 @@ export default defineComponent({
   components: { WeatherDisplay },
   setup() {
     const store = useStore();
-    // 視需要重設全局store狀態
-    //store.resetAllStores();
-    //console.log(store.weatherData);
-
-    // 從locationData讀取所有縣市資料
     const cities = locationData;
     const regions = ref(cities[0].regions);
     const selectedCity = ref(cities[0].name);
     const selectedRegion = ref(cities[0].regions[0]);
     const selectedCityDataId = ref(cities[0].dataId);
 
-    //fetchWeather()函數在組件掛載到 DOM 後執行一次，取得預設地區天氣資料。
+    // 若歷史紀錄有儲存地區，則fetchWeather()函數在組件掛載到 DOM 後執行一次，取得最近儲存地區的天氣資料
+    // 否則取得預設地區天氣資料
     onMounted(() => {
-      store.fetchWeather('宜蘭縣', '羅東鎮', 'F-D0047-003');
+      store.history.length > 0
+        ? store.fetchWeather(
+            store.history[0].city,
+            store.history[0].region,
+            store.history[0].dataId
+          )
+        : store.fetchWeather('宜蘭縣', '羅東鎮', 'F-D0047-003');
     });
 
-    // 根據選擇的縣市更新鄉鎮市區清單，更新縣市並顯示鄉鎮市區第一位
+    // 根據選擇的縣市更新鄉鎮市區清單並顯示鄉鎮市區第一位
     const updateRegions = () => {
       const city = cities.find((c) => c.name === selectedCity.value);
       if (city) {
@@ -95,7 +98,7 @@ export default defineComponent({
       }
     };
 
-    // 點擊確認按鈕，將選擇的縣市和鄉鎮市區加入歷史紀錄，異步更新該地區天氣
+    // 點擊查詢按鈕，將選擇的地區加入歷史紀錄，並獲取更新該地區天氣
     const confirm = async () => {
       store.addHistory(
         selectedCity.value,
@@ -109,7 +112,7 @@ export default defineComponent({
       );
     };
 
-    // 點擊歷史紀錄欄位，更新選擇的縣市和鄉鎮市區，異步更新該地區天氣
+    // 點擊歷史紀錄中的地區，異步更新該地區天氣
     const updateFromHistory = async (history: History) => {
       selectedCity.value = history.city;
       selectedCityDataId.value = history.dataId;

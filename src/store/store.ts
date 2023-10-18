@@ -7,22 +7,19 @@ moment.updateLocale('zh-tw', {
 });
 
 export const useStore = defineStore('store', {
-  // 定義狀態
   state: () => ({
     history: <History[]>[],
     weatherData: {} as WeatherData,
-    elements: <Elements[]>[], //一週天氣元素按照時間排序集合儲存於陣列中
+    elements: <Elements[]>[], //一週天氣元素按照日期排序集合儲存於陣列中
   }),
-  // 定義方法
   actions: {
-    // 添加一筆紀錄到狀態中
     addHistory(city: string, region: string, dataId: string) {
-      // 檢查是否已經存在相同的紀錄
+      // 檢查紀錄是否已存在相同的地區
       const exist = this.history.find(
         (r) => r.city === city && r.region === region
       );
       if (!exist) {
-        // 如果不存在，則將紀錄推入陣列的開頭
+        // 如果不存在，則將地區推入紀錄陣列的開頭
         this.history.unshift({ city, region, dataId });
         // 如果紀錄超過6筆，則移除最後一筆
         if (this.history.length > 6) {
@@ -30,7 +27,6 @@ export const useStore = defineStore('store', {
         }
       }
     },
-    // 清除歷史紀錄中所選的地區
     deleteFromHistory(index: any) {
       if (this.history.length > 0) {
         this.history.splice(index, 1);
@@ -48,30 +44,28 @@ export const useStore = defineStore('store', {
             },
           }
         );
-        // 將由API獲取的指定天氣因子資料存進data
+        // 由API獲取的指定天氣因子資料存進data
         const data =
           response.data.records.locations[0].location[0].weatherElement;
-        console.log(data);
-        // 取得縣市及鄉鎮市區名稱並存進weatherData
         this.weatherData.cityName = city;
         this.weatherData.regionName = region;
-        // 判斷data存在之後
+
         if (data) {
-          // 獲取一週每天開始時間的陣列
+          // 每天開始時間的陣列
           const dateArr = data[0].time.map((item: any) => item.startTime);
-          // 獲取一週降雨機率陣列
+          // 降雨機率陣列
           const popArr = data[0].time.map(
             (item: any) => item.elementValue[0].value
           );
-          // 獲取一週平均氣溫陣列
+          // 平均氣溫陣列
           const tArr = data[1].time.map(
             (item: any) => item.elementValue[0].value
           );
-          // 獲取一週平均相對濕度陣列
+          // 平均相對濕度陣列
           const rhArr = data[2].time.map(
             (item: any) => item.elementValue[0].value
           );
-          // 獲取一週天氣描述陣列
+          // 天氣現象陣列
           const wxArr = data[3].time.map(
             (item: any) => item.elementValue[0].value
           );
@@ -83,7 +77,7 @@ export const useStore = defineStore('store', {
           rhArr.length > 14 ? rhArr.shift() : rhArr;
           wxArr.length > 14 ? wxArr.shift() : wxArr;
 
-          // 使用遞歸方式將數個陣列轉換為數個物件儲存於陣列格式
+          // 使用迭代方法將陣列轉換為物件儲存於陣列中
           for (let i = 0; i < 7; i++) {
             // 格式化星期幾、日期、時間
             const day = moment(dateArr[i * 2]);
@@ -103,24 +97,10 @@ export const useStore = defineStore('store', {
               wx: [wxArr[i * 2], wxArr[i * 2 + 1]],
             };
           }
-          console.log(this.elements);
+          //console.log(this.elements);
         }
       } catch (error) {
         console.error(error);
-      }
-    },
-
-    // 重設全局store狀態的方法
-    resetAllStores() {
-      const activepinia = getActivePinia();
-      if (activepinia) {
-        Object.entries(activepinia.state.value).forEach(
-          ([storeName, state]) => {
-            const storeDefinition = defineStore(storeName, state);
-            const store = storeDefinition(activepinia);
-            store.$reset();
-          }
-        );
       }
     },
   },
