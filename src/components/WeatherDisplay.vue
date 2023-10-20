@@ -65,55 +65,46 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script setup lang="ts">
 import { useStore } from '@/store/store';
-export default defineComponent({
-  name: 'WeatherDisplay',
-  setup() {
-    const store = useStore();
 
-    // 根據天氣現象回傳對應的fontawesome圖標，僅供參考，以文字描述為準。
-    const getIcon = (wx: string) => {
-      // 天氣現象描述資訊參考: https://opendata.cwa.gov.tw/opendatadoc/MFC/A0012-001.pdf
-      // 僅大致分類列出，並將相似的天氣歸為一種圖標
+const store = useStore();
+const weatherList = store.weatherData;
+const elementItems = store.elements;
 
-      if (wx.includes('雷陣雨')) {
-        return 'fas fa-cloud-bolt';
-      }
-      if (wx.includes('短暫雨')) {
-        return 'fas fa-cloud-rain';
-      }
-      if (wx.includes('短暫陣雨')) {
-        return 'fas fa-cloud-rain';
-      }
-      if (wx.includes('雪')) {
-        return 'fas fa-snowflake';
-      }
-      switch (wx) {
-        case '晴天':
-          return 'fas fa-sun';
-        case '多雲':
-          return 'fas fa-cloud';
-        case '陰天':
-          return 'fas fa-cloud';
-        case '陰時多雲':
-          return 'fas fa-cloud-sun';
-        case '多雲時陰':
-          return 'fas fa-cloud-sun';
-        case '多雲時晴':
-          return 'fas fa-cloud-sun';
-        case '晴時多雲':
-          return 'fas fa-cloud-sun';
-        default:
-          return 'fas fa-cloud';
-      }
-    };
-    return {
-      weatherList: store.weatherData,
-      elementItems: store.elements,
-      getIcon,
-    };
-  },
-});
+// 根據天氣現象回傳對應的fontawesome圖標，僅供參考，以文字描述為準。
+// 天氣現象描述資訊參考: https://opendata.cwa.gov.tw/opendatadoc/MFC/A0012-001.pdf
+// 僅大致分類列出，並將相似的天氣歸為一種圖標
+const getIcon = (wx: string) => {
+  if (wx.includes('雷陣雨')) {
+    return 'fas fa-cloud-bolt';
+  }
+  if (wx.includes('短暫雨')) {
+    return 'fas fa-cloud-rain';
+  }
+  if (wx.includes('短暫陣雨')) {
+    return 'fas fa-cloud-rain';
+  }
+  if (wx.includes('雪')) {
+    return 'fas fa-snowflake';
+  }
+  switch (wx) {
+    case '晴天':
+      return 'fas fa-sun';
+    case '多雲':
+      return 'fas fa-cloud';
+    case '陰天':
+      return 'fas fa-cloud';
+    case '陰時多雲':
+      return 'fas fa-cloud-sun';
+    case '多雲時陰':
+      return 'fas fa-cloud-sun';
+    case '多雲時晴':
+      return 'fas fa-cloud-sun';
+    case '晴時多雲':
+      return 'fas fa-cloud-sun';
+    default:
+      return 'fas fa-cloud';
+  }
+};
 </script>

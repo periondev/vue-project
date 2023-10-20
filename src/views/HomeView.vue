@@ -58,85 +58,68 @@
   </main>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import locationData from '../location.json';
 import { useStore } from '@/store/store';
 import type { History } from '@/types';
 import WeatherDisplay from '@/components/WeatherDisplay.vue';
 
-export default defineComponent({
-  name: 'Home',
-  components: { WeatherDisplay },
-  setup() {
-    const store = useStore();
-    const cities = locationData;
-    const regions = ref(cities[0].regions);
-    const selectedCity = ref(cities[0].name);
-    const selectedRegion = ref(cities[0].regions[0]);
-    const selectedCityDataId = ref(cities[0].dataId);
+const store = useStore();
+const historyList = store.history;
+const cities = locationData;
+const regions = ref(cities[0].regions);
+const selectedCity = ref(cities[0].name);
+const selectedRegion = ref(cities[0].regions[0]);
+const selectedCityDataId = ref(cities[0].dataId);
 
-    // 若歷史紀錄有儲存地區，則fetchWeather()函數在組件掛載到 DOM 後執行一次，取得最近儲存地區的天氣資料
-    // 否則取得預設地區天氣資料
-    onMounted(() => {
-      store.history.length > 0
-        ? store.fetchWeather(
-            store.history[0].city,
-            store.history[0].region,
-            store.history[0].dataId
-          )
-        : store.fetchWeather('宜蘭縣', '羅東鎮', 'F-D0047-003');
-    });
-
-    // 根據選擇的縣市更新鄉鎮市區清單並顯示鄉鎮市區第一位
-    const updateRegions = () => {
-      const city = cities.find((c) => c.name === selectedCity.value);
-      if (city) {
-        regions.value = city.regions; // 所選取縣市的鄉鎮市區
-        selectedRegion.value = city.regions[0]; // 鄉鎮市區第一位
-        selectedCityDataId.value = city.dataId;
-      }
-    };
-
-    // 點擊查詢按鈕，將選擇的地區加入歷史紀錄，並獲取更新該地區天氣
-    const confirm = async () => {
-      store.addHistory(
-        selectedCity.value,
-        selectedRegion.value,
-        selectedCityDataId.value
-      );
-      await store.fetchWeather(
-        selectedCity.value,
-        selectedRegion.value,
-        selectedCityDataId.value
-      );
-    };
-
-    // 點擊歷史紀錄中的地區，異步更新該地區天氣
-    const updateFromHistory = async (history: History) => {
-      selectedCity.value = history.city;
-      selectedCityDataId.value = history.dataId;
-      updateRegions();
-      selectedRegion.value = history.region;
-      await store.fetchWeather(history.city, history.region, history.dataId);
-    };
-
-    // 點擊刪除歷史紀錄中所選的地區
-    const deleteItem = (index: number) => {
-      store.deleteFromHistory(index);
-    };
-
-    return {
-      cities,
-      regions,
-      selectedCity,
-      selectedRegion,
-      updateRegions,
-      confirm,
-      historyList: store.history,
-      updateFromHistory,
-      deleteItem,
-    };
-  },
+// 若歷史紀錄有儲存地區，則fetchWeather()函數在組件掛載到 DOM 後執行一次，取得最近儲存地區的天氣資料
+// 否則取得預設地區天氣資料
+onMounted(() => {
+  store.history.length > 0
+    ? store.fetchWeather(
+        store.history[0].city,
+        store.history[0].region,
+        store.history[0].dataId
+      )
+    : store.fetchWeather('宜蘭縣', '羅東鎮', 'F-D0047-003');
 });
+
+// 根據選擇的縣市更新鄉鎮市區列表並顯示鄉鎮市區列表第一筆
+const updateRegions = () => {
+  const city = cities.find((c) => c.name === selectedCity.value);
+  if (city) {
+    regions.value = city.regions; // 所選取縣市的鄉鎮市區列表
+    selectedRegion.value = city.regions[0]; // 第一筆鄉/鎮/區
+    selectedCityDataId.value = city.dataId;
+  }
+};
+
+// 點擊查詢按鈕，將選擇的地區加入歷史紀錄，並獲取更新該地區天氣
+const confirm = async () => {
+  store.addHistory(
+    selectedCity.value,
+    selectedRegion.value,
+    selectedCityDataId.value
+  );
+  await store.fetchWeather(
+    selectedCity.value,
+    selectedRegion.value,
+    selectedCityDataId.value
+  );
+};
+
+// 點擊歷史紀錄中的地區，異步更新該地區天氣
+const updateFromHistory = async (history: History) => {
+  selectedCity.value = history.city;
+  selectedCityDataId.value = history.dataId;
+  updateRegions();
+  selectedRegion.value = history.region;
+  await store.fetchWeather(history.city, history.region, history.dataId);
+};
+
+// 點擊刪除歷史紀錄中所選的地區
+const deleteItem = (index: number) => {
+  store.deleteFromHistory(index);
+};
 </script>

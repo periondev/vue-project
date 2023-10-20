@@ -15,13 +15,8 @@ export interface Elements {
   dayOfWeek: string;
   date: string;
   time: string[];
-  pop: string[];
-  t: string[];
-  rh: string[];
-  wx: string[];
+  pop: string[]; // PoP12h 降雨機率
+  t: string[]; // T 平均溫度
+  rh: string[]; // RH 相對濕度
+  wx: string[]; // Wx 天氣現象
 }
-
-// T // 平均溫度
-// RH // 相對濕度
-// Wx // 天氣現象
-// PoP12h // 降雨機率
