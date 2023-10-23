@@ -5,7 +5,7 @@
     <h1>{{ weatherList.cityName }}{{ weatherList.regionName }}一週天氣預報</h1>
   </div>
   <div
-    class="grid grid-cols-7 py-2 justify-items-center text-center font-bold text-xs md:text-sm text-white"
+    class="grid grid-cols-7 py-2 justify-items-center text-center font-bold text-xs md:text-sm text-sky-200"
   >
     <p>日期</p>
     <p>時間</p>
@@ -14,9 +14,9 @@
     <p>降雨機率</p>
     <p>溫度</p>
   </div>
-  <div class="flex flex-col gap-3 md:gap-5">
+  <div class="flex flex-col gap-2 md:gap-3">
     <div
-      class="grid grid-cols-7 justify-items-center items-center py-2 md:py-3 text-sm md:text-base rounded-lg bg-weather-secondary text-white"
+      class="grid grid-cols-7 justify-items-center items-center py-3 md:py-4 text-sm md:text-base rounded-lg bg-black/20 text-white"
       v-for="el in elementItems"
     >
       <span class="text-center">

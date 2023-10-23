@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col min-h-screen font-Roboto">
+  <div
+    class="flex flex-col min-h-screen font-Roboto bg-fixed bg-cover bg-[url('/bg-outdoor.jpg')]"
+  >
     <SiteNavigation />
-    <div class="min-h-screen bg-fixed bg-cover bg-[url('/bg-outdoor.jpg')]">
-      <RouterView />
-      <AppFooter />
-    </div>
+    <RouterView />
+    <AppFooter />
   </div>
 </template>
 
@@ -13,5 +13,3 @@ import { RouterView } from 'vue-router';
 import SiteNavigation from './components/SiteNavigation.vue';
 import AppFooter from './components/Footer.vue';
 </script>
-
-<!-- <style scoped></style> -->

@@ -6,8 +6,8 @@ module.exports = {
       colors: {
         'weather-primary': '#6d28d9',
         'weather-secondary': '#7c3aed',
-        'confirm-btn': '#059669',
-        'confirm-btn-dark': '#15803d',
+        'confirm-btn': '#0369a1',
+        'confirm-btn-dark': '#075985',
       },
     },
     container: {
