@@ -1,4 +1,4 @@
-import { defineStore, getActivePinia } from 'pinia';
+import { defineStore } from 'pinia';
 import type { History, WeatherData, Elements } from '@/types';
 import axios from 'axios';
 import moment from 'moment';
@@ -10,7 +10,7 @@ export const useStore = defineStore('store', {
   state: () => ({
     history: <History[]>[],
     weatherData: {} as WeatherData,
-    elements: <Elements[]>[], //一週天氣元素按照日期排序集合儲存於陣列中
+    elements: <Elements[]>[], // 一週天氣元素按照日期排序集合儲存於陣列中
   }),
   actions: {
     addHistory(city: string, region: string, dataId: string) {
@@ -49,7 +49,7 @@ export const useStore = defineStore('store', {
           response.data.records.locations[0].location[0].weatherElement;
         this.weatherData.cityName = city;
         this.weatherData.regionName = region;
-
+        //console.log(data);
         if (data) {
           // 每天開始時間的陣列
           const dateArr = data[0].time.map((item: any) => item.startTime);
@@ -79,18 +79,14 @@ export const useStore = defineStore('store', {
 
           // 使用迭代方法將陣列轉換為物件儲存於陣列中
           for (let i = 0; i < 7; i++) {
-            // 格式化星期幾、日期、時間
+            // 格式化星期幾、日期
             const day = moment(dateArr[i * 2]);
             const date = dateArr.map((d: string) =>
               d.split(' ')[0].split('-').slice(1).join('/')
             );
-            const time = dateArr.map((d: string) =>
-              d.split(' ')[1].slice(0, 5)
-            );
             this.elements[i] = {
               dayOfWeek: day.locale('zh-tw').format('dddd'),
               date: date[i * 2],
-              time: [time[i * 2], time[i * 2 + 1]],
               pop: [popArr[i * 2], popArr[i * 2 + 1]],
               t: [tArr[i * 2], tArr[i * 2 + 1]],
               rh: [rhArr[i * 2], rhArr[i * 2 + 1]],

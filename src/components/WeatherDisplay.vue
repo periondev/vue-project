@@ -24,8 +24,8 @@
         <p>{{ el.dayOfWeek }}</p>
       </span>
       <span>
-        <p>{{ el.time[0] }}</p>
-        <p>{{ el.time[1] }}</p>
+        <p>白天</p>
+        <p>晚上</p>
       </span>
       <div class="col-span-2 gap-1">
         <span class="flex flex-row gap-1 items-center">

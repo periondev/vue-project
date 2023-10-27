@@ -10,11 +10,10 @@ export interface WeatherData {
   regionName: string;
   elements: Elements[];
 }
-// 重新排序後每天的天氣元素資料格式，每個天氣元素含有日與夜兩筆資料
+// 以一天為單位重新組合後的天氣元素資料格式，每個天氣元素皆有白天(06:00~18:00)、晚上(18:00~隔天06:00)2筆資料
 export interface Elements {
   dayOfWeek: string;
   date: string;
-  time: string[];
   pop: string[]; // PoP12h 降雨機率
   t: string[]; // T 平均溫度
   rh: string[]; // RH 相對濕度
