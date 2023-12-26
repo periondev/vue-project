@@ -17,22 +17,25 @@
         <div class="text-black">
           <h1 class="text-2xl mb-2">關於本網頁</h1>
           <p class="mb-4">
-            "天氣預報"讓您可以觀察台灣所選地區的未來一週天氣狀況。
+            "天氣預報"網頁讓您可以觀察所選台灣地區的未來一週天氣狀況，資訊來自交通部中央氣象署氣象資訊開放資料。
           </p>
-          <h2 class="text-2xl">使用方法</h2>
+          <h2 class="text-xl my-2">使用方法</h2>
           <ol class="list-decimal list-inside mb-4">
-            <li>在左側下拉式縣市選單欄中選取縣市名稱以搜索您想要的縣市。</li>
+            <li>在左側下拉式選單欄中選取縣市名稱以查詢您想要的台灣縣市。</li>
             <li>
-              選取縣市之後，在右側下拉式鄉鎮市區選單欄中選擇鄉鎮或市區，並點擊確認按鈕，當前天氣頁面將會顯示該地區的最新天氣預報資訊。
+              選取縣市之後，在右側下拉式選單欄中選擇鄉鎮或市區，並點擊查詢按鈕，即可顯示該地區的最新天氣預報資訊。
             </li>
             <li>
-              只要點擊確認按鈕之後，搜尋過的地區會自動儲存於主頁上方的歷史紀錄，最多儲存6組，方便之後追蹤查看，點擊即可顯示該地區天氣預報資訊。
+              點擊查詢按鈕之後，搜尋過的地區會自動儲存歷史紀錄，最多儲存6組地區，方便之後追蹤查看，點擊地區名稱即可顯示該地區天氣最新預報資訊。
             </li>
           </ol>
-          <h2 class="text-2xl">取消追蹤城市</h2>
-          <p>
-            如果您不想再追蹤某個地區，只需點擊該地區旁邊的'-'符號，即可刪除該地區。
+          <h2 class="text-xl my-2">刪除地區紀錄</h2>
+          <p class="mb-4">
+            如果您不想再追蹤某個地區，只需點擊地區名稱旁邊的'-'符號，即可刪除該地區。
           </p>
+          <h2 class="text-xl my-2">參考連結</h2>
+          <a href="https://www.cwa.gov.tw/V8/C/" target="_blank"><p class="text-weather-secondary">交通部中央氣象署</p></a>
+          <a href="https://opendata.cwa.gov.tw/index" target="_blank"><p class="text-weather-secondary">氣象資料開放平台</p></a>
         </div>
       </BaseModel>
     </nav>
