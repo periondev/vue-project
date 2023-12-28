@@ -3,12 +3,12 @@
     <Transition name="fade-outer">
       <div
         v-show="modelActive"
-        class="flex fixed top-0 left-0 w-full h-full justify-center px-8 bg-black bg-opacity-30"
+        class="flex fixed top-0 z-20 left-0 w-full h-full justify-center px-8 bg-black bg-opacity-50"
       >
         <Transition name="fade-inner">
           <div
             v-if="modelActive"
-            class="p-4 my-auto md:mt-20 mb-auto max-w-screen-md self-start bg-white rounded-lg"
+            class="py-4 px-6 my-auto mb-auto max-w-screen-md self-start bg-white rounded-lg"
           >
             <slot />
             <div class="flex justify-end">

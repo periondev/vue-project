@@ -1,5 +1,5 @@
 <template>
-  <header class="sticky top-0 z-20 shadow-lg bg-weather-primary">
+  <header class="fixed top-0 z-10 w-screen shadow-lg bg-weather-primary">
     <nav class="container flex flex-row items-center text-white p-4">
       <RouterLink :to="{ name: 'home' }">
         <div class="flex items-center gap-3">
@@ -34,8 +34,12 @@
             如果您不想再追蹤某個地區，只需點擊地區名稱旁邊的'-'符號，即可刪除該地區。
           </p>
           <h2 class="text-xl my-2">參考連結</h2>
-          <a href="https://www.cwa.gov.tw/V8/C/" target="_blank"><p class="text-weather-secondary">交通部中央氣象署</p></a>
-          <a href="https://opendata.cwa.gov.tw/index" target="_blank"><p class="text-weather-secondary">氣象資料開放平台</p></a>
+          <a href="https://www.cwa.gov.tw/V8/C/" target="_blank"
+            ><p class="text-weather-secondary">交通部中央氣象署</p></a
+          >
+          <a href="https://opendata.cwa.gov.tw/index" target="_blank"
+            ><p class="text-weather-secondary">氣象資料開放平台</p></a
+          >
         </div>
       </BaseModel>
     </nav>
