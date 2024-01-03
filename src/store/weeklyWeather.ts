@@ -1,37 +1,17 @@
 import { defineStore } from 'pinia';
-import type { History, WeatherData, Elements } from '@/types';
+import type { WeatherData, Elements } from '@/types';
 import axios from 'axios';
 import moment from 'moment';
 moment.updateLocale('zh-tw', {
   weekdays: '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
 });
 
-export const useStore = defineStore('store', {
+export const useWeeklyWeather = defineStore('weeklyWeather', {
   state: () => ({
-    history: <History[]>[],
     weatherData: {} as WeatherData,
     elements: <Elements[]>[], // 一週天氣元素按照日期排序集合儲存於陣列中
   }),
   actions: {
-    addHistory(city: string, region: string, dataId: string) {
-      // 檢查紀錄是否已存在相同的地區
-      const exist = this.history.find(
-        (r) => r.city === city && r.region === region
-      );
-      if (!exist) {
-        // 如果不存在，則將地區推入紀錄陣列的開頭
-        this.history.unshift({ city, region, dataId });
-        // 如果紀錄超過6筆，則移除最後一筆
-        if (this.history.length > 6) {
-          this.history.pop();
-        }
-      }
-    },
-    deleteFromHistory(index: any) {
-      if (this.history.length > 0) {
-        this.history.splice(index, 1);
-      }
-    },
     async fetchWeather(city: string, region: string, dataId: string) {
       try {
         const response = await axios.get(
@@ -100,5 +80,4 @@ export const useStore = defineStore('store', {
       }
     },
   },
-  persist: true,
 });

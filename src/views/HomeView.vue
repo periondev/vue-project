@@ -61,12 +61,14 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import locationData from '../location.json';
-import { useStore } from '@/store/store';
+import { useWeeklyWeather } from '@/store/weeklyWeather';
+import { useHistory } from '@/store/history';
 import type { History } from '@/types';
 import WeatherDisplay from '@/components/WeatherDisplay.vue';
 
-const store = useStore();
-const historyList = store.history;
+const weeklyWeatherStore = useWeeklyWeather();
+const historyStore = useHistory();
+const historyList = historyStore.history;
 const cities = locationData;
 const regions = ref(cities[0].regions);
 const selectedCity = ref(cities[0].name);
@@ -76,13 +78,13 @@ const selectedCityDataId = ref(cities[0].dataId);
 // 若歷史紀錄有儲存地區，則fetchWeather()函數在組件掛載到 DOM 後執行一次，取得最近儲存地區的天氣資料
 // 否則取得預設地區天氣資料
 onMounted(() => {
-  store.history.length > 0
-    ? store.fetchWeather(
-        store.history[0].city,
-        store.history[0].region,
-        store.history[0].dataId
+  historyStore.history.length > 0
+    ? weeklyWeatherStore.fetchWeather(
+        historyStore.history[0].city,
+        historyStore.history[0].region,
+        historyStore.history[0].dataId
       )
-    : store.fetchWeather('宜蘭縣', '羅東鎮', 'F-D0047-003');
+    : weeklyWeatherStore.fetchWeather('宜蘭縣', '羅東鎮', 'F-D0047-003');
 });
 
 // 根據選擇的縣市更新鄉鎮市區列表並顯示鄉鎮市區列表第一筆
@@ -97,12 +99,12 @@ const updateRegions = () => {
 
 // 點擊查詢按鈕，將選擇的地區加入歷史紀錄，並獲取更新該地區天氣
 const confirm = async () => {
-  store.addHistory(
+  historyStore.addHistory(
     selectedCity.value,
     selectedRegion.value,
     selectedCityDataId.value
   );
-  await store.fetchWeather(
+  await weeklyWeatherStore.fetchWeather(
     selectedCity.value,
     selectedRegion.value,
     selectedCityDataId.value
@@ -115,11 +117,15 @@ const updateFromHistory = async (history: History) => {
   selectedCityDataId.value = history.dataId;
   updateRegions();
   selectedRegion.value = history.region;
-  await store.fetchWeather(history.city, history.region, history.dataId);
+  await weeklyWeatherStore.fetchWeather(
+    history.city,
+    history.region,
+    history.dataId
+  );
 };
 
 // 點擊刪除歷史紀錄中所選的地區
 const deleteItem = (index: number) => {
-  store.deleteFromHistory(index);
+  historyStore.deleteFromHistory(index);
 };
 </script>

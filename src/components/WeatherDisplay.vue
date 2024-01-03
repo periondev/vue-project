@@ -66,9 +66,8 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from '@/store/store';
-
-const store = useStore();
+import { useWeeklyWeather } from '@/store/weeklyWeather';
+const store = useWeeklyWeather();
 const weatherList = store.weatherData;
 const elementItems = store.elements;
 
