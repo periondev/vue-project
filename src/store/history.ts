@@ -6,7 +6,7 @@ export const useHistory = defineStore('history', {
     history: <History[]>[],
   }),
   actions: {
-    addHistory(city: string, region: string, dataId: string) {
+    addHistory(city: string, region: string, dataId: string[]) {
       // 檢查紀錄是否已存在相同的地區
       const exist = this.history.find(
         (r) => r.city === city && r.region === region
