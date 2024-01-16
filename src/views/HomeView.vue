@@ -9,7 +9,7 @@
         @change="updateRegions"
         class="rounded-full px-5 py-1.5"
       >
-        <option v-for="city in cities" :key="city.dataId" :value="city.name">
+        <option v-for="city in cities" :key="city.name" :value="city.name">
           {{ city.name }}
         </option>
       </select>
@@ -33,7 +33,7 @@
       </button>
     </div>
     <!-- 地區歷史紀錄 -->
-    <ul class="grid grid-cols-3 gap-x-4 mb-4">
+    <ul class="grid grid-cols-3 gap-x-4 mb-2">
       <li v-for="(history, index) in historyList" :key="index">
         <div class="relative py-2 text-sky-200">
           <div
@@ -54,18 +54,22 @@
         </div>
       </li>
     </ul>
+    <CurrentDisplay />
     <WeatherDisplay />
   </main>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import locationData from '../location.json';
+import { useCurrentWeather } from '@/store/currentWeather';
 import { useWeeklyWeather } from '@/store/weeklyWeather';
 import { useHistory } from '@/store/history';
 import type { History } from '@/types';
+import CurrentDisplay from '@/components/CurrentDisplay.vue';
 import WeatherDisplay from '@/components/WeatherDisplay.vue';
 
+const currentWeatherStore = useCurrentWeather();
 const weeklyWeatherStore = useWeeklyWeather();
 const historyStore = useHistory();
 const historyList = historyStore.history;
@@ -75,17 +79,22 @@ const selectedCity = ref(cities[0].name);
 const selectedRegion = ref(cities[0].regions[0]);
 const selectedCityDataId = ref(cities[0].dataId);
 
-// 若歷史紀錄有儲存地區，則fetchWeather()函數在組件掛載到 DOM 後執行一次，取得最近儲存地區的天氣資料
-// 否則取得預設地區天氣資料
-onMounted(() => {
-  historyStore.history.length > 0
-    ? weeklyWeatherStore.fetchWeather(
-        historyStore.history[0].city,
-        historyStore.history[0].region,
-        historyStore.history[0].dataId
-      )
-    : weeklyWeatherStore.fetchWeather('宜蘭縣', '羅東鎮', 'F-D0047-003');
-});
+// 若歷史紀錄有儲存地區，則取得最近一組地區的天氣資料，否則取得預設地區天氣資料
+const fetchWeatherData = () => {
+  if (historyStore.history.length > 0) {
+    const { city, region, dataId } = historyStore.history[0];
+    fetchWeather(city, region, dataId);
+  } else {
+    fetchWeather('宜蘭縣', '羅東鎮', cities[0].dataId);
+  }
+};
+// 調用 weeklyWeatherStore 和 currentWeatherStore 的 fetchWeather 函數
+const fetchWeather = (city: string, region: string, dataId: string[]) => {
+  weeklyWeatherStore.fetchWeather(city, region, dataId);
+  currentWeatherStore.fetchWeather(city, region, dataId);
+};
+// 網頁立即取得天氣資料
+fetchWeatherData();
 
 // 根據選擇的縣市更新鄉鎮市區列表並顯示鄉鎮市區列表第一筆
 const updateRegions = () => {
@@ -99,29 +108,23 @@ const updateRegions = () => {
 
 // 點擊查詢按鈕，將選擇的地區加入歷史紀錄，並獲取更新該地區天氣
 const confirm = async () => {
-  historyStore.addHistory(
-    selectedCity.value,
-    selectedRegion.value,
-    selectedCityDataId.value
-  );
-  await weeklyWeatherStore.fetchWeather(
-    selectedCity.value,
-    selectedRegion.value,
-    selectedCityDataId.value
-  );
+  const { value: city } = selectedCity;
+  const { value: region } = selectedRegion;
+  const { value: dataId } = selectedCityDataId;
+  historyStore.addHistory(city, region, dataId);
+  await weeklyWeatherStore.fetchWeather(city, region, dataId);
+  await currentWeatherStore.fetchWeather(city, region, dataId);
 };
 
 // 點擊歷史紀錄中的地區，異步更新該地區天氣
 const updateFromHistory = async (history: History) => {
-  selectedCity.value = history.city;
-  selectedCityDataId.value = history.dataId;
+  const { city, region, dataId } = history;
+  selectedCity.value = city;
+  selectedCityDataId.value = dataId;
   updateRegions();
-  selectedRegion.value = history.region;
-  await weeklyWeatherStore.fetchWeather(
-    history.city,
-    history.region,
-    history.dataId
-  );
+  selectedRegion.value = region;
+  await weeklyWeatherStore.fetchWeather(city, region, dataId);
+  await currentWeatherStore.fetchWeather(city, region, dataId);
 };
 
 // 點擊刪除歷史紀錄中所選的地區
