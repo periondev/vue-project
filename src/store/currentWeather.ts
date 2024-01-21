@@ -23,32 +23,30 @@ export const useCurrentWeather = defineStore('currentWeather', {
             },
           }
         );
-        // 由API獲取的指定天氣因子資料存進dataNow
+        // 由API獲取的指定天氣因子資料存進 dataNow
         const dataNow =
           response.data.records.locations[0].location[0].weatherElement;
-        console.log(dataNow);
+
         if (dataNow) {
           const wx = dataNow[0].time[1].elementValue[0].value; // 天氣現象
-          // const wxIcon = dataNow[0].time[1].elementValue[1].value; // 天氣圖標
           const t = dataNow[1].time[1].elementValue[0].value; // 溫度
           const rh = dataNow[2].time[1].elementValue[0].value; // 相對濕度
           const ci = dataNow[3].time[1].elementValue[1].value; // 舒適度文字描述
           const pop6h = dataNow[4].time[1].elementValue[0].value; // 6小時降雨機率
           const ws = dataNow[5].time[1].elementValue[0].value; // 風速 公尺/秒
 
-          // 取得現在時間，格式化星期幾、日期
+          // 取得現在時間、格式化時間、創建時間戳記
           const now = moment();
-          const day = now.locale('zh-tw').format('dddd');
+          const dayOfWeek = now.locale('zh-tw').format('dddd');
           const date = now.format('YYYY年M月D日');
+          const time = now.format('HH:mm');
+          const timestamp = date + ' ' + dayOfWeek + ' ' + time;
 
-          console.log(city, region, date, day, wx, t, rh, pop6h);
-
-          // 將資料存進物件
+          // 將資料存進 currentData 物件
           this.currentData = {
             cityName: city,
             regionName: region,
-            dayOfWeek: day,
-            date: date,
+            timestamp: timestamp,
             pop: pop6h, // PoP6h 降雨機率
             t: t, // T 平均溫度
             rh: rh, // RH 相對濕度
