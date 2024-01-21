@@ -1,10 +1,5 @@
 <template>
   <div
-    class="flex justify-center align-center text-xl my-4 py-2 text-white rounded-lg bg-weather-primary"
-  >
-    <h1>{{ weatherList.cityName }}{{ weatherList.regionName }}一週天氣預報</h1>
-  </div>
-  <div
     class="grid grid-cols-7 py-2 justify-items-center text-center font-bold text-xs md:text-sm text-sky-200"
   >
     <p>日期</p>
@@ -95,9 +90,9 @@ const getIcon = (wx: string) => {
     case '陰天':
       return 'fas fa-cloud';
     case '陰時多雲':
-      return 'fas fa-cloud-sun';
+      return 'fas fa-cloud';
     case '多雲時陰':
-      return 'fas fa-cloud-sun';
+      return 'fas fa-cloud';
     case '多雲時晴':
       return 'fas fa-cloud-sun';
     case '晴時多雲':

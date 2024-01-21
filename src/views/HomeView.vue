@@ -55,7 +55,7 @@
       </li>
     </ul>
     <CurrentDisplay />
-    <WeatherDisplay />
+    <WeeklyDisplay />
   </main>
 </template>
 
@@ -67,7 +67,7 @@ import { useWeeklyWeather } from '@/store/weeklyWeather';
 import { useHistory } from '@/store/history';
 import type { History } from '@/types';
 import CurrentDisplay from '@/components/CurrentDisplay.vue';
-import WeatherDisplay from '@/components/WeatherDisplay.vue';
+import WeeklyDisplay from '@/components/WeeklyDisplay.vue';
 
 const currentWeatherStore = useCurrentWeather();
 const weeklyWeatherStore = useWeeklyWeather();
