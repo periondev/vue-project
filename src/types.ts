@@ -8,13 +8,11 @@ export interface History {
 export interface CurrentData {
   cityName: string;
   regionName: string;
-  dayOfWeek: string;
-  date: string;
+  timestamp: string;
   pop: string; // PoP6h 降雨機率
   t: string; // T 平均溫度
   rh: string; // RH 相對濕度
   wx: string; // Wx 天氣現象
-  // wxIcon: string; // Wx 天氣圖標
   ci: string; // CI 舒適度指數
   ws: string; // WS 風速 公尺/秒
 }
