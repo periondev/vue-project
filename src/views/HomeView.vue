@@ -1,6 +1,6 @@
 <template>
   <main class="container mx-auto px-4 pt-16">
-    <div class="flex justify-center min-w-36 items-center space-x-4 my-4 pt-2">
+    <div class="flex justify-center min-w-36 items-center space-x-4 my-4">
       <!-- 選擇縣市 -->
       <select
         name="city"

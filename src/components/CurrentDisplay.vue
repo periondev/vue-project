@@ -1,19 +1,23 @@
 <template>
   <div
-    class="flex justify-center align-center text-xl my-4 py-2 text-white rounded-lg bg-weather-primary"
+    class="flex justify-center align-center text-xl mt-4 py-2 text-white rounded-t-lg bg-weather-primary"
   >
     <h1>{{ currentData.cityName }}{{ currentData.regionName }}</h1>
   </div>
   <div
-    class="flex flex-col justify-between p-3 md:px-12 rounded-lg bg-black/20"
+    class="flex flex-col justify-between p-3 md:px-12 rounded-b-lg text-sm md:text-base bg-black/20 text-white"
   >
-    <div class="font-bold text-lg text-white">
+    <div class="font-bold text-lg">
       <p>目前天氣</p>
     </div>
-    <div class="flex flex-col text-sm md:text-base text-white">
-      <div class="flex justify-between my-2 mx-4 md:mx-8">
+    <div class="flex flex-col">
+      <div class="flex justify-between my-1 mx-3 md:mx-8">
         <div class="flex flex-row items-center gap-3 md:gap-10">
-          <WeatherImage v-if="currentData.wx" :weather="currentData.wx" />
+          <WeatherImage
+            v-if="currentData.wx"
+            :weather="currentData.wx"
+            class="h-20 md:h-24 w-auto"
+          />
           <div>
             <span>
               <p class="text-4xl md:text-5xl font-bold">
@@ -28,7 +32,8 @@
             </span>
           </div>
         </div>
-        <div class="grid grid-rows-3 text-left">
+        <div class="h-20 border-l-4 rounded opacity-0 md:opacity-25"></div>
+        <div class="flex flex-col text-left gap-1">
           <span>
             <p>風速 : {{ currentData.ws }} 公尺/秒</p>
           </span>
