@@ -25,6 +25,9 @@ const getImage = (wx: string) => {
   if (wx.includes('短暫陣雨')) {
     return 'rainy';
   }
+  if (wx.includes('有雨')) {
+    return 'rainy';
+  }
   if (wx.includes('雪')) {
     return 'snowy';
   }

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="grid grid-cols-7 py-2 justify-items-center text-center font-bold text-xs md:text-sm text-sky-200"
+    class="grid grid-cols-7 mt-3 py-2 justify-items-center text-center font-bold text-xs md:text-sm text-sky-200"
   >
     <p>日期</p>
     <p>時間</p>
@@ -77,6 +77,9 @@ const getIcon = (wx: string) => {
     return 'fas fa-cloud-rain';
   }
   if (wx.includes('短暫陣雨')) {
+    return 'fas fa-cloud-rain';
+  }
+  if (wx.includes('有雨')) {
     return 'fas fa-cloud-rain';
   }
   if (wx.includes('雪')) {
