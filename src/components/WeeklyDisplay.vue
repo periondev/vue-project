@@ -24,23 +24,19 @@
       </span>
       <div class="col-span-2 gap-1">
         <span class="flex flex-row gap-1 items-center">
-          <i
-            :class="getIcon(el.wx[0])"
-            :alt="el.wx[0]"
-            width="64"
-            height="auto"
-          >
-          </i>
+          <WeatherImage
+            v-if="el.wx[0]"
+            :weather="el.wx[0]"
+            class="h-4 md:h-5 w-auto"
+          />
           <p>{{ el.wx[0] }}</p>
         </span>
         <span class="flex flex-row gap-1 items-center">
-          <i
-            :class="getIcon(el.wx[1])"
-            :alt="el.wx[1]"
-            width="64"
-            height="auto"
-          >
-          </i>
+          <WeatherImage
+            v-if="el.wx[1]"
+            :weather="el.wx[1]"
+            class="h-4 md:h-5 w-auto"
+          />
           <p>{{ el.wx[1] }}</p>
         </span>
       </div>
@@ -62,46 +58,7 @@
 
 <script setup lang="ts">
 import { useWeeklyWeather } from '@/store/weeklyWeather';
+import WeatherImage from './WeatherImage.vue';
 const store = useWeeklyWeather();
-const weatherList = store.weatherData;
 const elementItems = store.elements;
-
-// 根據天氣現象回傳對應的fontawesome圖標，僅供參考，以文字描述為準。
-// 天氣現象描述資訊參考: https://opendata.cwa.gov.tw/opendatadoc/MFC/A0012-001.pdf
-// 僅大致分類列出，並將相似的天氣歸為一種圖標
-const getIcon = (wx: string) => {
-  if (wx.includes('雷陣雨')) {
-    return 'fas fa-cloud-bolt';
-  }
-  if (wx.includes('短暫雨')) {
-    return 'fas fa-cloud-rain';
-  }
-  if (wx.includes('短暫陣雨')) {
-    return 'fas fa-cloud-rain';
-  }
-  if (wx.includes('有雨')) {
-    return 'fas fa-cloud-rain';
-  }
-  if (wx.includes('雪')) {
-    return 'fas fa-snowflake';
-  }
-  switch (wx) {
-    case '晴天':
-      return 'fas fa-sun';
-    case '多雲':
-      return 'fas fa-cloud';
-    case '陰天':
-      return 'fas fa-cloud';
-    case '陰時多雲':
-      return 'fas fa-cloud';
-    case '多雲時陰':
-      return 'fas fa-cloud';
-    case '多雲時晴':
-      return 'fas fa-cloud-sun';
-    case '晴時多雲':
-      return 'fas fa-cloud-sun';
-    default:
-      return 'fas fa-cloud';
-  }
-};
 </script>
