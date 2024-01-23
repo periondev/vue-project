@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import type { WeatherData, Elements } from '@/types';
+import type { WeatherData, WeeklyElements } from '@/types';
 import axios from 'axios';
 import moment from 'moment';
 moment.updateLocale('zh-tw', {
@@ -9,13 +9,13 @@ moment.updateLocale('zh-tw', {
 export const useWeeklyWeather = defineStore('weeklyWeather', {
   state: () => ({
     weatherData: {} as WeatherData,
-    elements: <Elements[]>[], // 一週天氣元素按照日期排序集合儲存於陣列中
+    elements: <WeeklyElements[]>[], // 一週天氣元素按照日期排序集合儲存於陣列中
   }),
   actions: {
-    async fetchWeather(city: string, region: string, dataId: string) {
+    async fetchWeather(city: string, region: string, dataId: string[]) {
       try {
         const response = await axios.get(
-          `https://opendata.cwa.gov.tw/api/v1/rest/datastore/${dataId}?`,
+          `https://opendata.cwa.gov.tw/api/v1/rest/datastore/${dataId[1]}?`,
           {
             params: {
               Authorization: import.meta.env.VITE_API,
@@ -29,26 +29,26 @@ export const useWeeklyWeather = defineStore('weeklyWeather', {
           response.data.records.locations[0].location[0].weatherElement;
         this.weatherData.cityName = city;
         this.weatherData.regionName = region;
-        //console.log(data);
+
         if (data) {
+          const pop12h = data[0].time;
+          const t = data[1].time;
+          const rh = data[2].time;
+          const wx = data[3].time;
+          // 取得氣象元素數值方法
+          const getValue = (arr: any) => {
+            return arr.map((item: any) => item.elementValue[0].value);
+          };
           // 每天開始時間的陣列
           const dateArr = data[0].time.map((item: any) => item.startTime);
           // 降雨機率陣列
-          const popArr = data[0].time.map(
-            (item: any) => item.elementValue[0].value
-          );
+          const popArr = getValue(pop12h);
           // 平均氣溫陣列
-          const tArr = data[1].time.map(
-            (item: any) => item.elementValue[0].value
-          );
+          const tArr = getValue(t);
           // 平均相對濕度陣列
-          const rhArr = data[2].time.map(
-            (item: any) => item.elementValue[0].value
-          );
+          const rhArr = getValue(rh);
           // 天氣現象陣列
-          const wxArr = data[3].time.map(
-            (item: any) => item.elementValue[0].value
-          );
+          const wxArr = getValue(wx);
 
           // 排除陣列第一筆資料:因查詢時間區段跨夜(After 18:00)造成第一筆為過時資料
           dateArr.length > 14 ? dateArr.shift() : dateArr;
@@ -73,7 +73,6 @@ export const useWeeklyWeather = defineStore('weeklyWeather', {
               wx: [wxArr[i * 2], wxArr[i * 2 + 1]],
             };
           }
-          //console.log(this.elements);
         }
       } catch (error) {
         console.error(error);
