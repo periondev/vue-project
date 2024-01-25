@@ -1,6 +1,6 @@
 <template>
   <div
-    class="grid grid-cols-7 mt-3 py-2 justify-items-center text-center font-bold text-xs md:text-sm text-sky-200"
+    class="grid grid-cols-7 mt-4 pb-2 justify-items-center text-center font-bold text-xs md:text-sm text-sky-200"
   >
     <p>日期</p>
     <p>時間</p>

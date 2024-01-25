@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex justify-center align-center text-xl mt-4 py-2 text-white rounded-t-lg bg-weather-primary"
+    class="flex justify-center align-center text-xl py-2 text-white rounded-t-lg bg-weather-primary"
   >
     <h1>{{ currentData.cityName }}{{ currentData.regionName }}</h1>
   </div>

@@ -1,6 +1,6 @@
 <template>
-  <main class="container mx-auto px-4 pt-16">
-    <div class="flex justify-center min-w-36 items-center space-x-4 my-4">
+  <main class="container mx-auto px-4 mt-14">
+    <div class="flex justify-center min-w-36 items-center space-x-4 my-6">
       <!-- 選擇縣市 -->
       <select
         name="city"
@@ -33,15 +33,18 @@
       </button>
     </div>
     <!-- 地區歷史紀錄 -->
-    <ul class="grid grid-cols-3 gap-x-4 mb-2">
+    <ul
+      v-if="historyList.length"
+      class="grid grid-cols-3 md:grid-cols-6 gap-3 pb-4"
+    >
       <li v-for="(history, index) in historyList" :key="index">
-        <div class="relative py-2 text-sky-200">
+        <div class="relative pb-2 text-sky-200">
           <div
             @click="updateFromHistory(history)"
             class="rounded-full duration-150 cursor-pointer border border-sky-200"
           >
             <span
-              class="flex flex-wrap text-sm py-1.5 justify-center hover:scale-110 duration-150"
+              class="flex flex-wrap text-sm py-1.5 justify-center hover:font-bold duration-150"
             >
               <p>{{ history.city }}</p>
               <p>{{ history.region }}</p>

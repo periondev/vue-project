@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed top-0 z-10 w-screen shadow-lg bg-weather-primary">
+  <header class="fixed top-0 z-10 w-full shadow-lg bg-weather-primary">
     <nav class="container flex flex-row items-center text-white py-3 px-4">
       <RouterLink :to="{ name: 'home' }">
         <div class="flex items-center gap-3">
