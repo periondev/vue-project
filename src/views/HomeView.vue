@@ -91,7 +91,7 @@ const fetchWeatherData = () => {
     fetchWeather('宜蘭縣', '羅東鎮', cities[0].dataId);
   }
 };
-// 調用 weeklyWeatherStore 和 currentWeatherStore 的 fetchWeather 函數
+// 調用 weeklyWeatherStore 和 currentWeatherStore 的 fetchWeather API 函式
 const fetchWeather = (city: string, region: string, dataId: string[]) => {
   weeklyWeatherStore.fetchWeather(city, region, dataId);
   currentWeatherStore.fetchWeather(city, region, dataId);
@@ -109,25 +109,50 @@ const updateRegions = () => {
   }
 };
 
+// 定義一個防抖函式，避免頻繁呼叫 fetchWeather 函式
+const debounce = (fn: Function, delay: number) => {
+  let timer: any = null; // 定時器
+  let lastCity = ''; // 上一次選擇的城市
+  let lastRegion = ''; // 上一次選擇的鄉鎮市區
+  return (...args: any[]) => {
+    const [city, region] = args; // 獲取當前選擇的城市、鄉鎮市區
+    if (city !== lastCity || region !== lastRegion) {
+      // 選擇地區與上一次不同
+      clearTimeout(timer); // 清除定時器
+      fn(...args); // 立即執行回調函式
+      lastCity = city; // 更新上一次選擇的城市
+      lastRegion = region; // 更新上一次選擇的鄉鎮市區
+    } else {
+      // 選擇地區與上一次相同
+      clearTimeout(timer); // 清除定時器
+      timer = setTimeout(() => {
+        // 重新設置一個新的定時器
+        fn(...args); // 延遲執行回調函式
+      }, delay); // 延遲時間
+    }
+  };
+};
+
+// 防抖後的 fetchWeather 函式:使用防抖函式包裝。
+const debouncedFetchWeather = debounce(fetchWeather, 5000); // 延遲時間為5秒
+
 // 點擊查詢按鈕，將選擇的地區加入歷史紀錄，並獲取更新該地區天氣
-const confirm = async () => {
+const confirm = () => {
   const { value: city } = selectedCity;
   const { value: region } = selectedRegion;
   const { value: dataId } = selectedCityDataId;
   historyStore.addHistory(city, region, dataId);
-  await weeklyWeatherStore.fetchWeather(city, region, dataId);
-  await currentWeatherStore.fetchWeather(city, region, dataId);
+  debouncedFetchWeather(city, region, dataId); // 調用防抖後的 fetchWeather 函式
 };
 
 // 點擊歷史紀錄中的地區，異步更新該地區天氣
-const updateFromHistory = async (history: History) => {
+const updateFromHistory = (history: History) => {
   const { city, region, dataId } = history;
   selectedCity.value = city;
   selectedCityDataId.value = dataId;
   updateRegions();
   selectedRegion.value = region;
-  await weeklyWeatherStore.fetchWeather(city, region, dataId);
-  await currentWeatherStore.fetchWeather(city, region, dataId);
+  debouncedFetchWeather(city, region, dataId); // 調用防抖後的 fetchWeather 函式
 };
 
 // 點擊刪除歷史紀錄中所選的地區
