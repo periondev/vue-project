@@ -13,10 +13,10 @@
         </div>
       </RouterLink>
       <div class="flex flex-1 gap-3 justify-end">
-        <i
-          class="fa-solid fa-circle-info text-2xl hover:scale-110 duration-150 cursor-pointer"
+        <InformationCircleIcon
+          class="h-[30px] w-auto text-2xl hover:scale-110 duration-150 cursor-pointer"
           @click="toggleBaseModel"
-        ></i>
+        />
       </div>
       <BaseModel :modelActive="modelActive" @close-model="toggleBaseModel">
         <div class="text-black">
@@ -55,6 +55,7 @@
 import { RouterLink } from 'vue-router';
 import BaseModel from './BaseModel.vue';
 import { ref } from 'vue';
+import { InformationCircleIcon } from '@heroicons/vue/24/solid';
 
 const modelActive = ref(false);
 const toggleBaseModel = () => {

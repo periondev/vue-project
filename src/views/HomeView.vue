@@ -1,13 +1,14 @@
 <template>
-  <main class="container mx-auto px-4 mt-14">
+  <main class="container mx-auto px-4 mt-14 tracking-wide">
     <div class="flex justify-center min-w-36 items-center space-x-4 my-6">
       <!-- 選擇縣市 -->
       <select
         name="city"
         title="select city"
+        autocomplete="off"
         v-model="selectedCity"
         @change="updateRegions"
-        class="rounded-full px-5 py-1.5"
+        class="rounded-full"
       >
         <option v-for="city in cities" :key="city.name" :value="city.name">
           {{ city.name }}
@@ -17,8 +18,9 @@
       <select
         name="region"
         title="select region"
+        autocomplete="off"
         v-model="selectedRegion"
-        class="rounded-full px-5 py-1.5"
+        class="rounded-full"
       >
         <option v-for="region in regions" :key="region" :value="region">
           {{ region }}
@@ -50,10 +52,10 @@
               <p>{{ history.region }}</p>
             </span>
           </div>
-          <i
+          <MinusCircleIcon
             @click="deleteItem(index)"
-            class="fa-solid fa-circle-minus duration-150 cursor-pointer absolute bottom-0 right-0 hover:scale-125"
-          ></i>
+            class="h-[19px] w-auto mr-[-2px] mb-[-2px] duration-150 cursor-pointer absolute bottom-0 right-0 hover:scale-125"
+          />
         </div>
       </li>
     </ul>
@@ -71,6 +73,7 @@ import { useHistory } from '@/store/history';
 import type { History } from '@/types';
 import CurrentDisplay from '@/components/CurrentDisplay.vue';
 import WeeklyDisplay from '@/components/WeeklyDisplay.vue';
+import { MinusCircleIcon } from '@heroicons/vue/24/solid';
 
 const currentWeatherStore = useCurrentWeather();
 const weeklyWeatherStore = useWeeklyWeather();
