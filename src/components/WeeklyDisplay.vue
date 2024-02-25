@@ -2,12 +2,12 @@
   <div
     class="grid grid-cols-7 mt-4 pb-2 justify-items-center text-center font-bold text-xs md:text-sm text-sky-200"
   >
-    <p>日期</p>
-    <p>時間</p>
-    <p class="col-span-2">天氣現象</p>
-    <p>濕度</p>
-    <p>降雨機率</p>
-    <p>溫度</p>
+    <p>{{ $t('date') }}</p>
+    <p>{{ $t('time') }}</p>
+    <p class="col-span-2">{{ $t('weather') }}</p>
+    <p>{{ $t('humidity') }}</p>
+    <p>{{ $t('pop') }}</p>
+    <p>{{ $t('temp') }}</p>
   </div>
   <div class="flex flex-col gap-2 md:gap-3">
     <div
@@ -16,41 +16,41 @@
     >
       <span class="text-center">
         <p>{{ el.date }}</p>
-        <p>{{ el.dayOfWeek }}</p>
+        <i18n-d tag="p" :value="el.dayOfWeek" format="dayOfWeek"></i18n-d>
       </span>
-      <span>
-        <p>白天</p>
-        <p>晚上</p>
+      <span class="text-center">
+        <p>{{ $t('day') }}</p>
+        <p>{{ $t('night') }}</p>
       </span>
       <div class="col-span-2 gap-1">
-        <span class="flex flex-row gap-1 items-center">
+        <span class="flex flex-row gap-1 items-start">
           <WeatherImage
             v-if="el.wx[0]"
             :weather="el.wx[0]"
             class="h-4 md:h-5 w-auto"
           />
-          <p>{{ el.wx[0] }}</p>
+          <p>{{ $t(el.wx[0]) }}</p>
         </span>
-        <span class="flex flex-row gap-1 items-center">
+        <span class="flex flex-row gap-1 items-start">
           <WeatherImage
             v-if="el.wx[1]"
             :weather="el.wx[1]"
             class="h-4 md:h-5 w-auto"
           />
-          <p>{{ el.wx[1] }}</p>
+          <p>{{ $t(el.wx[1]) }}</p>
         </span>
       </div>
-      <span>
+      <span class="text-right">
         <p>{{ el.rh[0] }} %</p>
         <p>{{ el.rh[1] }} %</p>
       </span>
-      <span>
+      <span class="text-right">
         <p>{{ el.pop[0] === ' ' ? '-' : el.pop[0] }} %</p>
         <p>{{ el.pop[1] === ' ' ? '-' : el.pop[1] }} %</p>
       </span>
-      <span>
-        <p>{{ el.t[0] }} °C</p>
-        <p>{{ el.t[1] }} °C</p>
+      <span class="text-right">
+        <p>{{ el.t[0] }} °</p>
+        <p>{{ el.t[1] }} °</p>
       </span>
     </div>
   </div>
