@@ -22,7 +22,7 @@ const datetimeFormats: I18nOptions['datetimeFormats'] = {
       weekday: 'short',
     },
   },
-  zh: {
+  'zh-TW': {
     short: {
       year: 'numeric',
       month: 'short',
@@ -47,9 +47,8 @@ const i18n = createI18n({
   legacy: false,
   locale: 'zhTW',
   missingWarn: false,
-  fallbackLocale: 'zh',
+  fallbackLocale: 'zh-TW', // for datetimeFormats
   fallbackWarn: false,
-  formatFallbackMessages: true, // 找不到KEY則回退原本字串(keys of weather ci & weather wx NOT exist in 'zhTW' locale messages)
   globalInjection: true,
   datetimeFormats,
   messages: {
