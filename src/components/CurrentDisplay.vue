@@ -2,16 +2,19 @@
   <div
     class="flex justify-center align-center text-xl py-2 text-white rounded-t-lg bg-weather-primary"
   >
-    <h1>{{ currentData.cityName }}{{ currentData.regionName }}</h1>
+    <h1 v-if="$i18n.locale === 'en'" class="text-lg px-2">
+      {{ $t(currentData.regionName) }}{{ ', ' }}{{ $t(currentData.cityName) }}
+    </h1>
+    <h1 v-else>{{ currentData.cityName }}{{ currentData.regionName }}</h1>
   </div>
   <div
-    class="flex flex-col justify-between p-3 md:px-12 rounded-b-lg text-sm md:text-base bg-black/20 text-white"
+    class="flex flex-col justify-between p-3 md:px-12 rounded-b-lg bg-black/20 text-white"
   >
     <div class="font-bold text-lg">
-      <p>{{ $t('current_weather') }}</p>
+      <p>{{ $t('currentWeather') }}</p>
     </div>
     <div class="flex flex-col">
-      <div class="flex justify-between my-1 mx-3 md:mx-8">
+      <div class="flex justify-between my-1 mx-3 md:mx-8 text-sm md:text-base">
         <div
           v-if="currentData.wx && currentData.t && currentData.ci"
           class="flex flex-row items-center gap-3 md:gap-10"
@@ -43,7 +46,7 @@
           </span>
         </div>
       </div>
-      <div class="flex justify-end">
+      <div class="flex justify-end text-sm">
         <p>{{ $d(Date.now(), 'long') }}</p>
       </div>
     </div>
