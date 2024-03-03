@@ -1,6 +1,6 @@
 <template>
   <main class="container mx-auto px-4 mt-14 tracking-wide">
-    <div class="flex justify-center min-w-36 items-center space-x-4 my-6">
+    <div class="grid grid-cols-2 md:flex justify-center gap-y-4 gap-x-3 my-6">
       <!-- 選擇縣市 -->
       <select
         name="city"
@@ -8,10 +8,10 @@
         autocomplete="off"
         v-model="selectedCity"
         @change="updateRegions"
-        class="rounded-full"
+        class="rounded-full truncate"
       >
         <option v-for="city in cities" :key="city.name" :value="city.name">
-          {{ city.name }}
+          {{ $t(city.name) }}
         </option>
       </select>
       <!-- 選擇鄉鎮市區 -->
@@ -20,25 +20,24 @@
         title="select region"
         autocomplete="off"
         v-model="selectedRegion"
-        class="rounded-full"
+        class="rounded-full truncate"
       >
         <option v-for="region in regions" :key="region" :value="region">
-          {{ region }}
+          {{ $t(region) }}
         </option>
       </select>
       <button
         type="button"
-        @click="confirm"
-        class="font-bold text-white bg-confirm-btn hover:bg-confirm-btn-dark rounded-full px-3 py-1"
+        name="submit"
+        title="submit"
+        @click="submit"
+        class="col-span-2 md:flex text-sky-100 bg-confirm-btn hover:bg-confirm-btn-dark rounded-full px-3 py-1"
       >
-        查詢
+        <MagnifyingGlassIcon class="h-5 w-5 my-0.5 mx-auto" />
       </button>
     </div>
     <!-- 地區歷史紀錄 -->
-    <ul
-      v-if="historyList.length"
-      class="grid grid-cols-3 md:grid-cols-6 gap-3 pb-4"
-    >
+    <ul v-if="historyList.length" class="grid grid-cols-3 gap-3 pb-4">
       <li v-for="(history, index) in historyList" :key="index">
         <div class="relative pb-2 text-sky-200">
           <div
@@ -46,7 +45,17 @@
             class="rounded-full duration-150 cursor-pointer border border-sky-200"
           >
             <span
-              class="flex flex-wrap text-sm py-1.5 justify-center hover:font-bold duration-150"
+              v-if="$i18n.locale === 'en'"
+              class="flex text-xs py-1.5 px-2 justify-start md:justify-center hover:font-bold duration-150"
+              :title="`${$t(history.region)}` + ', ' + `${$t(history.city)}`"
+            >
+              <p class="truncate">
+                {{ $t(history.region) }}, {{ $t(history.city) }}
+              </p>
+            </span>
+            <span
+              v-else
+              class="flex text-xs py-1.5 justify-center hover:font-bold duration-150"
             >
               <p>{{ history.city }}</p>
               <p>{{ history.region }}</p>
@@ -74,6 +83,7 @@ import type { History } from '@/types';
 import CurrentDisplay from '@/components/CurrentDisplay.vue';
 import WeeklyDisplay from '@/components/WeeklyDisplay.vue';
 import { MinusCircleIcon } from '@heroicons/vue/24/solid';
+import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid';
 
 const currentWeatherStore = useCurrentWeather();
 const weeklyWeatherStore = useWeeklyWeather();
@@ -140,7 +150,7 @@ const debounce = (fn: Function, delay: number) => {
 const debouncedFetchWeather = debounce(fetchWeather, 5000); // 延遲時間為5秒
 
 // 點擊查詢按鈕，將選擇的地區加入歷史紀錄，並獲取更新該地區天氣
-const confirm = () => {
+const submit = () => {
   const { value: city } = selectedCity;
   const { value: region } = selectedRegion;
   const { value: dataId } = selectedCityDataId;
