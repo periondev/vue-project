@@ -27,7 +27,7 @@
           <WeatherImage
             v-if="el.wx[0]"
             :weather="el.wx[0]"
-            class="h-4 md:h-5 w-auto"
+            class="h-4 md:h-6 w-auto"
           />
           <p>{{ $t(el.wx[0]) }}</p>
         </span>
@@ -35,7 +35,7 @@
           <WeatherImage
             v-if="el.wx[1]"
             :weather="el.wx[1]"
-            class="h-4 md:h-5 w-auto"
+            class="h-4 md:h-6 w-auto"
           />
           <p>{{ $t(el.wx[1]) }}</p>
         </span>
