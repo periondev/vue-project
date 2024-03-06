@@ -15,7 +15,7 @@
         </div>
       </RouterLink>
       <div class="flex flex-1 gap-2 justify-end">
-        <div class="relative">
+        <div class="relative" ref="langMenu">
           <LanguageIcon
             class="h-[28px] w-auto hover:scale-110 duration-150 cursor-pointer"
             @click="toggleMenu"
@@ -34,9 +34,8 @@
           @click="toggleBaseModel"
         />
       </div>
-
-      <BaseModel :modelActive="modelActive" @close-model="toggleBaseModel">
-        <div class="text-black text-sm leading-relaxed">
+      <BaseModel :modelActive="modelActive" @close-model="!modelActive">
+        <div class="text-black text-sm leading-relaxed" ref="infoModel">
           <h1 class="text-2xl mb-2">{{ $t('infoTitle') }}</h1>
           <p class="mb-4">
             {{ $t('infoAbout') }}
@@ -81,21 +80,34 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import BaseModel from './BaseModel.vue';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { InformationCircleIcon } from '@heroicons/vue/24/solid';
 import { LanguageIcon } from '@heroicons/vue/24/solid';
+import { onClickOutside } from '@vueuse/core';
 const { locale } = useI18n();
-const menuActive = ref(false);
 const modelActive = ref(false);
+const menuActive = ref(false);
+const langMenu = ref(null);
+const infoModel = ref(null);
+
+const toggleBaseModel = () => {
+  modelActive.value = !modelActive.value;
+};
 
 const toggleMenu = () => {
   menuActive.value = !menuActive.value;
 };
 
-const toggleBaseModel = () => {
-  modelActive.value = !modelActive.value;
-};
+onMounted(() => {
+  onClickOutside(langMenu, () => {
+    menuActive.value = false;
+  });
+
+  onClickOutside(infoModel, () => {
+    modelActive.value = false;
+  });
+});
 
 // 語言切換
 const changeLang = (val: string) => {
