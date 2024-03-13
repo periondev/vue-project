@@ -1,11 +1,13 @@
 <template>
   <div
-    class="flex justify-center align-center text-xl py-2 text-white rounded-t-lg bg-weather-primary"
+    class="flex justify-center align-center p-2 text-white rounded-t-lg bg-weather-primary"
   >
-    <h1 v-if="$i18n.locale === 'en'" class="text-lg px-2">
+    <h1 v-if="$i18n.locale === 'en'" class="text-lg truncate">
       {{ $t(currentData.regionName) }}{{ ', ' }}{{ $t(currentData.cityName) }}
     </h1>
-    <h1 v-else>{{ currentData.cityName }}{{ currentData.regionName }}</h1>
+    <h1 v-else class="text-xl">
+      {{ currentData.cityName }}{{ currentData.regionName }}
+    </h1>
   </div>
   <div
     class="flex flex-col justify-between p-3 md:px-12 rounded-b-lg bg-black/20 text-white"
@@ -36,13 +38,13 @@
         <div class="h-20 border-l-4 rounded opacity-0 md:opacity-25"></div>
         <div class="flex flex-col text-left gap-1">
           <span>
-            <p>{{ $t('wind_speed') }} : {{ currentData.ws }} {{ $t('m/s') }}</p>
-          </span>
-          <span>
             <p>{{ $t('humidity') }} : {{ currentData.rh }} %</p>
           </span>
           <span>
             <p>{{ $t('pop') }} : {{ currentData.pop }} %</p>
+          </span>
+          <span>
+            <p>{{ $t('wind_speed') }} : {{ currentData.ws }} {{ $t('m/s') }}</p>
           </span>
         </div>
       </div>
