@@ -12,9 +12,7 @@
   <div
     class="flex flex-col justify-between p-3 md:px-12 rounded-b-lg bg-black/20 text-white"
   >
-    <div class="font-bold text-lg">
-      <p>{{ $t('currentWeather') }}</p>
-    </div>
+    <p class="font-bold text-lg">{{ $t('currentWeather') }}</p>
     <div class="flex flex-col">
       <div class="flex justify-between my-1 mx-3 md:mx-8 text-sm md:text-base">
         <div
@@ -48,9 +46,7 @@
           </span>
         </div>
       </div>
-      <div class="flex justify-end text-sm">
-        <p>{{ $d(Date.now(), 'long') }}</p>
-      </div>
+      <p class="text-end text-sm">{{ $d(Date.now(), 'long') }}</p>
     </div>
   </div>
 </template>

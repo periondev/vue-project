@@ -12,6 +12,7 @@
   <div class="flex flex-col gap-2 md:gap-3">
     <div
       class="grid grid-cols-7 justify-items-center items-center py-3 md:py-4 text-sm md:text-base rounded-lg bg-black/20 text-white"
+      v-if="elementItems"
       v-for="el in elementItems"
     >
       <span class="text-center">
@@ -24,19 +25,11 @@
       </span>
       <div class="col-span-2 gap-1">
         <span class="flex flex-row gap-1 items-start">
-          <WeatherImage
-            v-if="el.wx[0]"
-            :weather="el.wx[0]"
-            class="h-4 md:h-6 w-auto"
-          />
+          <WeatherImage :weather="el.wx[0]" class="h-4 md:h-6 w-auto" />
           <p>{{ $t(el.wx[0]) }}</p>
         </span>
         <span class="flex flex-row gap-1 items-start">
-          <WeatherImage
-            v-if="el.wx[1]"
-            :weather="el.wx[1]"
-            class="h-4 md:h-6 w-auto"
-          />
+          <WeatherImage :weather="el.wx[1]" class="h-4 md:h-6 w-auto" />
           <p>{{ $t(el.wx[1]) }}</p>
         </span>
       </div>
