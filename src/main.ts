@@ -5,7 +5,7 @@ import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import App from './App.vue';
 import router from './router';
-import i18n from './plugins/vue-i18n';
+import i18n from './utils/vue-i18n';
 
 const app = createApp(App);
 const pinia = createPinia();
