@@ -7,7 +7,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 const pwaOptions: Partial<VitePWAOptions> = {
   includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
   manifest: {
-    name: '鄉鎮市區天氣預報',
+    name: '台灣天氣預報',
     short_name: '天氣預報',
     description:
       '天氣預報網頁是一個使用者友善的資訊網頁，提供台灣各鄉鎮和市區的天氣預報，資訊皆來自中央氣象署的統計數據。憑藉直觀的界面和實時更新，使用者可以隨時了解所在地區的最新天氣狀況，也能儲存自訂地區以便日後快速查看。',
