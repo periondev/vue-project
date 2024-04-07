@@ -35,12 +35,8 @@
         />
       </div>
       <BaseModel :modelActive="modelActive" @close-model="!modelActive">
-        <div class="text-black text-sm leading-relaxed" ref="infoModel">
-          <h1 class="text-2xl mb-2">{{ $t('infoTitle') }}</h1>
-          <p class="mb-4">
-            {{ $t('infoAbout') }}
-          </p>
-          <h2 class="text-xl my-2">{{ $t('howToUse.title') }}</h2>
+        <div class="text-black leading-relaxed" ref="infoModel">
+          <h1 class="text-2xl mb-2">{{ $t('howToUse.title') }}</h1>
           <ol class="list-decimal list-inside mb-4">
             <li>
               {{ $t('howToUse.ol1') }}
@@ -51,26 +47,10 @@
             <li>
               {{ $t('howToUse.ol3') }}
             </li>
+            <li>
+              {{ $t('howToUse.ol4') }}
+            </li>
           </ol>
-          <h2 class="text-xl my-2">{{ $t('referenceLink') }}</h2>
-          <ul class="list-disc list-inside">
-            <li>
-              <a
-                href="https://www.cwa.gov.tw/V8/C/"
-                target="_blank"
-                class="text-weather-secondary"
-                >{{ $t('CWAWeb') }}</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://opendata.cwa.gov.tw/index"
-                target="_blank"
-                class="text-weather-secondary"
-                >{{ $t('openWeatherDataWeb') }}</a
-              >
-            </li>
-          </ul>
         </div>
       </BaseModel>
     </nav>

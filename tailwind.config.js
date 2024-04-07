@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         'weather-primary': '#6d28d9',
-        'weather-secondary': '#7c3aed',
+        'weather-secondary': '#a78bfa',
         'confirm-btn': '#0369a1',
         'confirm-btn-dark': '#075985',
       },

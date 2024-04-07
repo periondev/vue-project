@@ -7,6 +7,7 @@
       >
       © 2024
     </p>
+    <RouterLink to="/about"><p>About</p></RouterLink>
     <a
       href="https://www.flaticon.com/free-icons/weather"
       title="weather icons"

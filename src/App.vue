@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col min-h-screen font-Roboto bg-scroll bg-cover bg-[url('/bg-outdoor.jpg')]"
+    class="flex flex-col justify-between min-h-screen font-Roboto bg-scroll bg-cover bg-[url('/bg-outdoor.jpg')]"
   >
     <SiteNavigation />
     <RouterView />

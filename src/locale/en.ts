@@ -14,16 +14,18 @@ export default {
   // Info Page
   infoTitle: 'About This Page',
   infoAbout:
-    'The "Weather Forecast" page allows you to observe the current weather and the weather forecast for the next week in selected townships and districts of Taiwan. The information is sourced from the open data provided by the Central Weather Administration. This page offers both Traditional Chinese and English languages, which can be switched using the buttons at the top of the page.',
+    'The "Weather Forecast" page allows you to observe the current weather and the weather forecast for the next week in selected townships and districts of Taiwan. The information is sourced from the open data provided by the Central Weather Administration.',
   howToUse: {
     title: 'How to Use',
     ol1: 'Select the Taiwan county or city and the corresponding township or district name from the dropdown menu, then click the Search button to obtain the weather information for that area.',
     ol2: 'The areas you have queried will be stored in the history, with up to 6 sets of areas stored for convenient tracking and viewing later. Simply click on the area name to display the latest weather information.',
     ol3: 'The areas in the records can be freely deleted by clicking the "-" symbol next to their names.',
+    ol4: 'This page offers both Traditional Chinese and English languages, which can be switched using the language options at the top of the page.',
   },
   referenceLink: 'Reference Link',
-  CWAWeb: 'Central Weather Administration Website',
-  openWeatherDataWeb: 'Open Weather Data Website',
+  CWALink: 'Central Weather Administration Website',
+  openWeatherDataLink: 'Open Weather Data Website',
+  weatherDataTranslationLink: 'Weather Data Translation',
   closeBtn: 'Close',
   // 22 縣市
   臺北市: 'Taipei City',
