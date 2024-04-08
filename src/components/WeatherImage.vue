@@ -4,6 +4,8 @@
     :alt="weather"
     width="85"
     height="auto"
+    rel="preload"
+    fetchpriority="high"
   />
 </template>
 
