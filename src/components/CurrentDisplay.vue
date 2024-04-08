@@ -36,13 +36,13 @@
         <div class="h-20 border-l-4 rounded opacity-0 md:opacity-25"></div>
         <div class="flex flex-col text-left gap-1">
           <span>
-            <p>{{ $t('humidity') }} : {{ currentData.rh }} %</p>
+            <p>{{ $t('humidity') }}：{{ currentData.rh }}%</p>
           </span>
           <span>
-            <p>{{ $t('pop') }} : {{ currentData.pop }} %</p>
+            <p>{{ $t('pop') }}：{{ currentData.pop }}%</p>
           </span>
           <span>
-            <p>{{ $t('wind_speed') }} : {{ currentData.ws }} {{ $t('m/s') }}</p>
+            <p>{{ $t('wind_speed') }}：{{ currentData.ws }} {{ $t('m/s') }}</p>
           </span>
         </div>
       </div>

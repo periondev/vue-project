@@ -34,16 +34,16 @@
         </span>
       </div>
       <span class="text-right">
-        <p>{{ el.rh[0] }} %</p>
-        <p>{{ el.rh[1] }} %</p>
+        <p>{{ el.rh[0] }}%</p>
+        <p>{{ el.rh[1] }}%</p>
       </span>
       <span class="text-right">
-        <p>{{ el.pop[0] === ' ' ? '-' : el.pop[0] }} %</p>
-        <p>{{ el.pop[1] === ' ' ? '-' : el.pop[1] }} %</p>
+        <p>{{ el.pop[0] === ' ' ? '-' : el.pop[0] }}%</p>
+        <p>{{ el.pop[1] === ' ' ? '-' : el.pop[1] }}%</p>
       </span>
       <span class="text-right">
-        <p>{{ el.t[0] }} °</p>
-        <p>{{ el.t[1] }} °</p>
+        <p>{{ el.t[0] }}°</p>
+        <p>{{ el.t[1] }}°</p>
       </span>
     </div>
   </div>
