@@ -3,9 +3,9 @@
     <div
       class="flex flex-col justify-between my-6 p-6 md:p-10 rounded-lg bg-black/20 text-white"
     >
-      <h1 class="text-2xl mb-2">{{ $t('infoTitle') }}</h1>
+      <h1 class="text-2xl mb-2">{{ $t('AboutTitle') }}</h1>
       <p class="mb-4">
-        {{ $t('infoAbout') }}
+        {{ $t('AboutInfo') }}
       </p>
       <h2 class="text-xl my-2">{{ $t('referenceLink') }}</h2>
       <ul class="list-disc list-inside">

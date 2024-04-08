@@ -12,9 +12,6 @@ export default {
   day: '白天',
   night: '晚上',
   // Info page
-  infoTitle: '關於本網頁',
-  infoAbout:
-    '"天氣預報"網頁讓您可以觀察所選台灣鄉鎮市區的目前天氣及未來一週天氣狀況，資訊來自交通部中央氣象署氣象資訊開放資料。',
   howToUse: {
     title: '使用方法',
     ol1: '在下拉式選單中選取台灣縣市及鄉鎮或市區名稱，之後點擊查詢按鈕即可獲得該地區的天氣資訊。',
@@ -22,9 +19,16 @@ export default {
     ol3: '紀錄中的地區可以任意刪減，點擊地區名稱旁的"-"符號即可刪除。',
     ol4: '網頁提供繁體中文、英文兩種語言，可於網頁上方的語言選項中切換。',
   },
+  closeBtn: '關閉說明',
+  // Footer
+  HomeTitle: '首頁',
+  // About Page
+  AboutTitle: '關於網頁',
+  AboutInfo:
+    '"天氣預報"網頁讓您可以觀察所選台灣鄉鎮市區的目前天氣及未來一週天氣狀況，資訊來自交通部中央氣象署氣象資訊開放資料。',
+
   referenceLink: '資訊參考連結',
   CWALink: '交通部中央氣象署',
   openWeatherDataLink: '氣象資料開放平台',
   weatherDataTranslationLink: '預報因子中英文對照及天氣描述代碼對應文件',
-  closeBtn: '關閉說明',
 };
