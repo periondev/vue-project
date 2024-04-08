@@ -1,14 +1,14 @@
 <template>
-  <main class="container mx-auto px-4 mt-14 tracking-wide leading-relaxed">
-    <div
-      class="flex flex-col justify-between my-6 p-6 md:p-10 rounded-lg bg-black/20 text-white"
+  <main class="container mx-auto px-4 mt-14 tracking-wide">
+    <article
+      class="prose prose-invert max-w-none prose-h1:text-2xl my-6 p-6 md:p-10 rounded-lg bg-black/20"
     >
-      <h1 class="text-2xl mb-2">{{ $t('AboutTitle') }}</h1>
-      <p class="mb-4">
+      <h1>{{ $t('AboutTitle') }}</h1>
+      <p>
         {{ $t('AboutInfo') }}
       </p>
-      <h2 class="text-xl my-2">{{ $t('referenceLink') }}</h2>
-      <ul class="list-disc list-inside">
+      <h2>{{ $t('referenceLink') }}</h2>
+      <ul>
         <li>
           <a
             href="https://www.cwa.gov.tw/V8/C/"
@@ -34,7 +34,7 @@
           >
         </li>
       </ul>
-    </div>
+    </article>
   </main>
 </template>
 

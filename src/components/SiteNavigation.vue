@@ -34,10 +34,11 @@
           @click="toggleBaseModel"
         />
       </div>
+      <!-- Info Page -->
       <BaseModel :modelActive="modelActive" @close-model="!modelActive">
-        <div class="text-black leading-relaxed" ref="infoModel">
-          <h1 class="text-2xl mb-2">{{ $t('howToUse.title') }}</h1>
-          <ol class="list-decimal list-inside mb-4">
+        <article class="prose prose-h1:text-3xl" ref="infoModel">
+          <h1>{{ $t('howToUse.title') }}</h1>
+          <ol>
             <li>
               {{ $t('howToUse.ol1') }}
             </li>
@@ -51,7 +52,7 @@
               {{ $t('howToUse.ol4') }}
             </li>
           </ol>
-        </div>
+        </article>
       </BaseModel>
     </nav>
   </header>
