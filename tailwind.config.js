@@ -3,6 +3,14 @@ module.exports = {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      typography: (theme) => ({
+        darkBG: {
+          css: {
+            '--tw-prose-body': theme('colors.white'),
+            '--tw-prose-headings': theme('colors.white'),
+          },
+        },
+      }),
       colors: {
         'weather-primary': '#6d28d9',
         'weather-secondary': '#a78bfa',
@@ -19,5 +27,5 @@ module.exports = {
       md: '768px',
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };
