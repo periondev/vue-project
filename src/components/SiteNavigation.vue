@@ -36,7 +36,7 @@
       </div>
       <!-- Info Page -->
       <BaseModel :modelActive="modelActive" @close-model="!modelActive">
-        <article class="prose prose-h1:text-3xl" ref="infoModel">
+        <article class="prose prose-h1:text-2xl" ref="infoModel">
           <h1>{{ $t('howToUse.title') }}</h1>
           <ol>
             <li>
