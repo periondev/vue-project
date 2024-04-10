@@ -2,8 +2,8 @@
   <img
     :src="getImageUrl(weather as string)"
     :alt="weather"
-    width="85"
-    height="auto"
+    width="80"
+    height="80"
     rel="preload"
     fetchpriority="high"
   />

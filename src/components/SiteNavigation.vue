@@ -9,7 +9,7 @@
             src="../assets/icons/logo.png"
             alt="weather"
             width="30"
-            height="auto"
+            height="30"
           />
           <p class="text-2xl font-bold">{{ $t('weatherForecast') }}</p>
         </div>
