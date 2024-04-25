@@ -13,16 +13,16 @@
     class="flex flex-col justify-between p-3 md:px-12 rounded-b-lg bg-black/20 text-white"
   >
     <p class="font-bold text-lg">{{ $t('currentWeather') }}</p>
-    <div class="flex flex-col">
-      <div class="flex justify-between my-1 mx-3 md:mx-8 text-sm md:text-base">
+    <div class="flex flex-col text-sm">
+      <div class="flex justify-between my-1 mx-3 md:mx-8">
         <div
-          v-if="currentData.wx && currentData.t && currentData.ci"
+          v-if="currentData.wx && currentData.temp && currentData.ci"
           class="flex flex-row items-center gap-3 md:gap-10"
         >
           <WeatherImage :weather="currentData.wx" class="h-20 md:h-24 w-auto" />
           <div>
             <span class="flex flex-row items-start font-bold md:gap-2">
-              <p class="text-5xl">{{ currentData.t }}</p>
+              <p class="text-5xl">{{ currentData.temp }}</p>
               <p class="text-base md:text-5xl">°C</p>
             </span>
             <span>
@@ -46,7 +46,7 @@
           </span>
         </div>
       </div>
-      <p class="text-end text-sm">{{ $d(Date.now(), 'long') }}</p>
+      <p class="text-end">{{ $d(Date.now(), 'long') }}</p>
     </div>
   </div>
 </template>

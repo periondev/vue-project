@@ -1,6 +1,6 @@
 <template>
   <div
-    class="grid grid-cols-7 mt-4 pb-2 justify-items-center text-center font-bold text-xs md:text-sm text-sky-200"
+    class="grid grid-cols-7 p-2 justify-items-center text-center font-bold text-xs text-sky-200"
   >
     <p>{{ $t('date') }}</p>
     <p>{{ $t('time') }}</p>
@@ -11,7 +11,7 @@
   </div>
   <div class="flex flex-col gap-2 md:gap-3">
     <div
-      class="grid grid-cols-7 justify-items-center items-center py-3 md:py-4 text-sm md:text-base rounded-lg bg-black/20 text-white"
+      class="grid grid-cols-7 justify-items-center items-center py-3 md:py-4 text-sm rounded-lg bg-black/20 text-white"
       v-if="elementItems"
       v-for="el in elementItems"
     >
@@ -42,8 +42,8 @@
         <p>{{ el.pop[1] === ' ' ? '-' : el.pop[1] }}%</p>
       </span>
       <span class="text-right">
-        <p>{{ el.t[0] }}°</p>
-        <p>{{ el.t[1] }}°</p>
+        <p>{{ el.temp[0] }}°</p>
+        <p>{{ el.temp[1] }}°</p>
       </span>
     </div>
   </div>

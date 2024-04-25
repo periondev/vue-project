@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
-import type { CurrentData } from '@/types';
+import type { CurrentElements } from '@/types';
 import axios from 'axios';
 
 export const useCurrentWeather = defineStore('currentWeather', {
   state: () => ({
-    currentData: {} as CurrentData,
+    currentData: {} as CurrentElements,
   }),
   actions: {
     async fetchWeather(city: string, region: string, dataId: string[]) {
@@ -36,7 +36,7 @@ export const useCurrentWeather = defineStore('currentWeather', {
             cityName: city,
             regionName: region,
             pop: pop6h,
-            t: t,
+            temp: t,
             rh: rh,
             wx: wx,
             ci: ci,
