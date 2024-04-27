@@ -1,6 +1,6 @@
 <template>
   <div
-    class="grid grid-cols-7 p-2 justify-items-center text-center font-bold text-xs text-sky-200"
+    class="grid grid-cols-7 py-2 justify-items-center text-center font-bold text-xs text-sky-200"
   >
     <p>{{ $t('date') }}</p>
     <p>{{ $t('time') }}</p>

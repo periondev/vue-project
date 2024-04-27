@@ -52,5 +52,3 @@ const updateFromHistory = (history: History) => {
   debouncedFetchWeather(city, region, dataId); // 調用防抖函式
 };
 </script>
-
-<style scoped></style>
