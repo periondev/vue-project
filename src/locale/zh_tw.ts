@@ -11,6 +11,9 @@ export default {
   temp: '溫度',
   day: '白天',
   night: '晚上',
+  // Chart label
+  dayTemp: '白天溫度',
+  nightTemp: '晚上溫度',
   // Info page
   howToUse: {
     title: '使用方法',

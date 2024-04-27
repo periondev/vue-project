@@ -1,5 +1,8 @@
 <template>
-  <div class="flex p-2 justify-start align-middle" @click="toggleChartDisplay">
+  <div
+    class="flex py-2 px-3 justify-start align-middle"
+    @click="toggleChartDisplay"
+  >
     <button
       class="flex gap-2 justify-items-center text-center font-bold text-xs md:text-sm text-sky-200"
     >

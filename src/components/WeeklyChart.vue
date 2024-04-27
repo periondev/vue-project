@@ -6,6 +6,8 @@
 import { toRefs, computed } from 'vue';
 import { useWeeklyWeather } from '@/store/weeklyWeather';
 import { Line } from 'vue-chartjs';
+import i18n from '../utils/vue-i18n';
+const { t } = i18n.global;
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -37,23 +39,51 @@ const chartData = computed(() => ({
   labels: chartElements.value.date,
   datasets: [
     {
-      label: 'Day Temp',
-      backgroundColor: '#fff',
-      borderColor: '#fde68a',
-      color: '#fff',
+      label: t('dayTemp'),
       data: chartElements.value.tempDay,
+      backgroundColor: '#fde68a',
+      borderColor: '#fde68a',
+      hoverRadius: 6,
     },
     {
-      label: 'Night Temp',
-      backgroundColor: '#fff',
-      borderColor: '#a78bfa',
-      color: '#fff',
+      label: t('nightTemp'),
       data: chartElements.value.tempNight,
+      backgroundColor: '#a78bfa',
+      borderColor: '#a78bfa',
+      hoverRadius: 6,
     },
   ],
 }));
-const chartOptions = {
+const chartOptions = computed(() => ({
   responsive: true,
   maintainAspectRatio: false,
-};
+  plugins: {
+    legend: {
+      labels: {
+        boxWidth: 24,
+        color: '#fff',
+      },
+    },
+  },
+  scales: {
+    x: {
+      grid: {
+        color: '#525252',
+      },
+      ticks: {
+        color: '#fff',
+      },
+    },
+    y: {
+      grid: {
+        color: '#525252',
+      },
+      ticks: {
+        color: '#fff',
+      },
+      suggestedMax: 32,
+      suggestedMin: 20,
+    },
+  },
+}));
 </script>

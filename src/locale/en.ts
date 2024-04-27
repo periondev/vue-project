@@ -11,6 +11,9 @@ export default {
   temp: 'Temp',
   day: 'Day',
   night: 'Night',
+  // Chart label
+  dayTemp: 'Day Temp',
+  nightTemp: 'Night Temp',
   // Info Page
   howToUse: {
     title: 'How to Use',
