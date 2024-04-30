@@ -26,8 +26,14 @@ export interface WeeklyElements {
   wx: string[]; // Wx 天氣現象、天氣圖標
 }
 
-export interface ChartElements {
+export interface WeeklyChartData {
   date: string[];
   tempDay: number[]; // T 早平均溫度
   tempNight: number[]; // T 晚平均溫度
+}
+
+export interface CurrentChartData {
+  date: string[][];
+  temp: number[]; // T
+  at: number[]; // AT
 }

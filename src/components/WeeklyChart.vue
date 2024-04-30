@@ -33,21 +33,21 @@ ChartJS.register(
 
 // Chart data
 const store = useWeeklyWeather();
-const { chartElements } = toRefs(store);
+const { weeklyChartData } = toRefs(store);
 
 const chartData = computed(() => ({
-  labels: chartElements.value.date,
+  labels: weeklyChartData.value.date,
   datasets: [
     {
       label: t('dayTemp'),
-      data: chartElements.value.tempDay,
+      data: weeklyChartData.value.tempDay,
       backgroundColor: '#fde68a',
       borderColor: '#fde68a',
       hoverRadius: 6,
     },
     {
       label: t('nightTemp'),
-      data: chartElements.value.tempNight,
+      data: weeklyChartData.value.tempNight,
       backgroundColor: '#a78bfa',
       borderColor: '#a78bfa',
       hoverRadius: 6,

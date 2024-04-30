@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
-import type { ChartElements, WeeklyElements } from '@/types';
+import type { WeeklyChartData, WeeklyElements } from '@/types';
 import axios from 'axios';
 
 export const useWeeklyWeather = defineStore('weeklyWeather', {
   state: () => ({
     elements: <WeeklyElements[]>[], // 一週天氣元素按照日期排序集合儲存於陣列中
-    chartElements: {} as ChartElements, // 一週折線圖數據 Chart data
+    weeklyChartData: {} as WeeklyChartData, // 一週折線圖數據 Chart data
   }),
   actions: {
     async fetchWeather(city: string, region: string, dataId: string[]) {
@@ -65,7 +65,7 @@ export const useWeeklyWeather = defineStore('weeklyWeather', {
             };
           }
           // 折線圖數據
-          this.chartElements = {
+          this.weeklyChartData = {
             date: date.filter((_: any, i: number) => i % 2 === 0),
             tempDay: tArr
               .filter((_: any, i: number) => i % 2 === 0)
