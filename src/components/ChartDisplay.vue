@@ -6,8 +6,8 @@
       @click="toggleChartDisplay"
       class="flex my-auto gap-2 justify-items-center text-center font-bold"
     >
-      <p v-if="!chartDisplayActive">展開折線圖</p>
-      <p v-if="chartDisplayActive">收起折線圖</p>
+      <p v-if="!chartDisplayActive">{{ $t('showChart') }}</p>
+      <p v-if="chartDisplayActive">{{ $t('hideChart') }}</p>
       <ChevronDownIcon
         v-if="!chartDisplayActive"
         class="h-[14px] w-auto hover:scale-110 duration-150 cursor-pointer my-auto"
@@ -19,17 +19,17 @@
     </button>
     <div v-if="chartDisplayActive" class="flex gap-3">
       <button
-        title="逐三小時溫度曲線"
+        :title="$t('every3hourForecastsTitle')"
         @click="showChart('current')"
         :class="{ 'font-bold': selectedChart === 'current' }"
       >
-        逐三小時預報</button
+        {{ $t('every3hourForecasts') }}</button
       ><button
-        title="一週溫度曲線"
+        :title="$t('sevenDayTempChartTitle')"
         @click="showChart('weekly')"
         :class="{ 'font-bold': selectedChart === 'weekly' }"
       >
-        一週溫度
+        {{ $t('sevenDayTempChart') }}
       </button>
     </div>
   </div>

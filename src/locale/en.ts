@@ -11,9 +11,17 @@ export default {
   temp: 'Temp',
   day: 'Day',
   night: 'Night',
+  // Chart buttons
+  showChart: 'Show Chart',
+  hideChart: 'Hide Chart',
+  every3hourForecasts: 'Every 3-hour Forecasts',
+  every3hourForecastsTitle: '3-hour Temprature Chart',
+  sevenDayTempChart: '7 Day Temperature Chart',
+  sevenDayTempChartTitle: '7 Day Temperature Chart',
   // Chart label
   dayTemp: 'Day Temp',
   nightTemp: 'Night Temp',
+  apparentTemp: 'Apparent Temp',
   // Info Page
   howToUse: {
     title: 'How to Use',

@@ -39,14 +39,14 @@ const chartData = computed(() => ({
   labels: currentChartData.value.date,
   datasets: [
     {
-      label: '溫度',
+      label: t('temp'),
       data: currentChartData.value.temp,
       backgroundColor: '#2dd4bf',
       borderColor: '#2dd4bf',
       hoverRadius: 6,
     },
     {
-      label: '體感溫度',
+      label: t('apparentTemp'),
       data: currentChartData.value.at,
       backgroundColor: '#fecdd3',
       borderColor: '#fecdd3',

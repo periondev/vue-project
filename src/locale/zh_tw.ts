@@ -11,9 +11,17 @@ export default {
   temp: '溫度',
   day: '白天',
   night: '晚上',
+  // Chart buttons
+  showChart: '展開折線圖',
+  hideChart: '收起折線圖',
+  every3hourForecasts: '逐三小時預報',
+  every3hourForecastsTitle: '逐三小時溫度曲線',
+  sevenDayTempChart: '一週溫度',
+  sevenDayTempChartTitle: '一週溫度曲線',
   // Chart label
   dayTemp: '白天溫度',
   nightTemp: '晚上溫度',
+  apparentTemp: '體感溫度',
   // Info page
   howToUse: {
     title: '使用方法',
