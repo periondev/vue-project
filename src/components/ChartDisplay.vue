@@ -34,17 +34,9 @@
     </div>
   </div>
   <div v-if="chartDisplayActive">
-    <div
-      v-if="selectedChart === 'current'"
-      class="flex p-3 md:px-12 rounded-lg bg-black/20 text-white"
-    >
-      <CurrentChart />
-    </div>
-    <div
-      v-if="selectedChart === 'weekly'"
-      class="flex p-3 md:px-12 rounded-lg bg-black/20 text-white"
-    >
-      <WeeklyChart />
+    <div class="flex p-3 md:px-12 rounded-lg bg-black/20 text-white">
+      <CurrentChart v-if="selectedChart === 'current'" />
+      <WeeklyChart v-if="selectedChart === 'weekly'" />
     </div>
   </div>
 </template>
@@ -54,7 +46,29 @@ import WeeklyChart from './WeeklyChart.vue';
 import CurrentChart from './CurrentChart.vue';
 import { ChevronDownIcon } from '@heroicons/vue/24/solid';
 import { ChevronUpIcon } from '@heroicons/vue/24/solid';
-import { ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+onBeforeMount(() => {
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+});
 
 const chartDisplayActive = ref(true);
 const selectedChart = ref('current');

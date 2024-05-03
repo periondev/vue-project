@@ -8,30 +8,8 @@ import { useWeeklyWeather } from '@/store/weeklyWeather';
 import { Line } from 'vue-chartjs';
 import i18n from '../utils/vue-i18n';
 const { t } = i18n.global;
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
 
-// Chart config
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-// Chart data
+// Weekly Chart data
 const store = useWeeklyWeather();
 const { weeklyChartData } = toRefs(store);
 

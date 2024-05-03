@@ -8,30 +8,8 @@ import { useCurrentWeather } from '@/store/currentWeather';
 import { Line } from 'vue-chartjs';
 import i18n from '../utils/vue-i18n';
 const { t } = i18n.global;
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
 
-// Chart config
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-// Chart data
+// Current Chart data
 const store = useCurrentWeather();
 const { currentChartData } = toRefs(store);
 
