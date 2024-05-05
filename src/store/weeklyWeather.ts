@@ -46,18 +46,18 @@ export const useWeeklyWeather = defineStore('weeklyWeather', {
           );
 
           // 簡化日期:月/日、格式化日期
-          const date = dateArr.map((d: string) =>
+          const shortDate = dateArr.map((d: string) =>
             d.split(' ')[0].split('-').slice(1).join('/')
           );
-          const formatedDate = dateArr.map((d: string) => {
+          const formattedDate = dateArr.map((d: string) => {
             return new Date(d);
           });
 
           // 使用迭代方法將陣列轉換為物件儲存於陣列中
           for (let i = 0; i < 7; i++) {
             this.elements[i] = {
-              dayOfWeek: formatedDate[i * 2],
-              date: date[i * 2],
+              dayOfWeek: formattedDate[i * 2],
+              date: shortDate[i * 2],
               pop: [popArr[i * 2], popArr[i * 2 + 1]],
               temp: [tArr[i * 2], tArr[i * 2 + 1]],
               rh: [rhArr[i * 2], rhArr[i * 2 + 1]],
@@ -66,7 +66,8 @@ export const useWeeklyWeather = defineStore('weeklyWeather', {
           }
           // 折線圖數據
           this.weeklyChartData = {
-            date: date.filter((_: any, i: number) => i % 2 === 0),
+            date: shortDate.filter((_: any, i: number) => i % 2 === 0),
+            dayOfWeek: formattedDate.filter((_: any, i: number) => i % 2 === 0),
             tempDay: tArr
               .filter((_: any, i: number) => i % 2 === 0)
               .map((str: string) => parseInt(str)),

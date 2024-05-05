@@ -28,6 +28,7 @@ export interface WeeklyElements {
 
 export interface WeeklyChartData {
   date: string[];
+  dayOfWeek: string[];
   tempDay: number[]; // T 早平均溫度
   tempNight: number[]; // T 晚平均溫度
 }

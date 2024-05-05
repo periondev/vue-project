@@ -7,14 +7,19 @@ import { toRefs, computed } from 'vue';
 import { useWeeklyWeather } from '@/store/weeklyWeather';
 import { Line } from 'vue-chartjs';
 import i18n from '../utils/vue-i18n';
-const { t } = i18n.global;
+const { t, d } = i18n.global;
 
 // Weekly Chart data
 const store = useWeeklyWeather();
 const { weeklyChartData } = toRefs(store);
 
 const chartData = computed(() => ({
-  labels: weeklyChartData.value.date,
+  labels: [
+    ...weeklyChartData.value.date.map((el: any, i: number) => [
+      el,
+      d(weeklyChartData.value.dayOfWeek[i], 'dayOfWeek'),
+    ]),
+  ],
   datasets: [
     {
       label: t('dayTemp'),
