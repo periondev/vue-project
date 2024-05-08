@@ -44,15 +44,15 @@ export const useCurrentWeather = defineStore('currentWeather', {
             ws: ws,
           };
 
-          const TCollection = [...dataNow[2].time.slice(0, 24)];
-          const ATCollection = [...dataNow[1].time.slice(0, 24)];
-
-          // 處理日期方法
+          const TCollection = dataNow[2].time.slice(0, 25);
+          const ATCollection = dataNow[1].time.slice(0, 25);
+          console.log(TCollection);
+          // 取得簡化日期、時間函式
           const getDate = (str: string) =>
             str.split(' ')[0].split('-').slice(1).join('/');
           const getTime = (str: string) => str.split(' ')[1].slice(0, 5);
 
-          const dateArr = TCollection.map((el) => [
+          const dateArr = TCollection.map((el: any) => [
             getDate(el.dataTime),
             getTime(el.dataTime),
           ]);
