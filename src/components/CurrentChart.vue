@@ -1,5 +1,5 @@
 <template>
-  <Line :options="chartOptions" :data="chartData" />
+  <Line :options="chartOptions" :data="chartData" :width="1280" :height="220" />
 </template>
 
 <script setup lang="ts">
@@ -9,7 +9,7 @@ import { Line } from 'vue-chartjs';
 import i18n from '../utils/vue-i18n';
 const { t } = i18n.global;
 
-// Current Chart data
+// Chart data of current weather forecast
 const store = useCurrentWeather();
 const { currentChartData } = toRefs(store);
 
@@ -33,12 +33,14 @@ const chartData = computed(() => ({
   ],
 }));
 const chartOptions = computed(() => ({
-  responsive: true,
+  responsive: false, // set false to enable overflow canvas with scrollbar
   maintainAspectRatio: false,
   plugins: {
     legend: {
+      align: 'start' as 'start',
       labels: {
         boxWidth: 24,
+        boxHeight: 10,
         color: '#fff',
       },
     },

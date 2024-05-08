@@ -1,5 +1,5 @@
 <template>
-  <Line :options="chartOptions" :data="chartData" />
+  <Line :options="chartOptions" :data="chartData" :height="220" />
 </template>
 
 <script setup lang="ts">
@@ -9,7 +9,7 @@ import { Line } from 'vue-chartjs';
 import i18n from '../utils/vue-i18n';
 const { t, d } = i18n.global;
 
-// Weekly Chart data
+// Chart data of weekly weather forecast
 const store = useWeeklyWeather();
 const { weeklyChartData } = toRefs(store);
 
@@ -42,8 +42,10 @@ const chartOptions = computed(() => ({
   maintainAspectRatio: false,
   plugins: {
     legend: {
+      align: 'start' as 'start',
       labels: {
         boxWidth: 24,
+        boxHeight: 10,
         color: '#fff',
       },
     },

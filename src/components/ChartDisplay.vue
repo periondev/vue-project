@@ -33,8 +33,8 @@
       </button>
     </div>
   </div>
-  <div v-if="chartDisplayActive">
-    <div class="flex p-3 md:px-12 rounded-lg bg-black/20 text-white">
+  <div class="rounded-lg overflow-hidden bg-black/20 text-white">
+    <div v-if="chartDisplayActive" class="flex p-3 md:px-12 overflow-auto">
       <CurrentChart v-if="selectedChart === 'current'" />
       <WeeklyChart v-if="selectedChart === 'weekly'" />
     </div>
