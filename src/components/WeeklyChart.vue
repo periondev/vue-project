@@ -1,5 +1,5 @@
 <template>
-  <Line :options="chartOptions" :data="chartData" :height="220" />
+  <Line :options="chartOptions" :data="chartData" :height="240" />
 </template>
 
 <script setup lang="ts">
@@ -8,11 +8,10 @@ import { useWeeklyWeather } from '@/store/weeklyWeather';
 import { Line } from 'vue-chartjs';
 import i18n from '../utils/vue-i18n';
 const { t, d } = i18n.global;
+const weeklyStore = useWeeklyWeather();
+const { weeklyChartData } = toRefs(weeklyStore);
 
 // Chart data of weekly weather forecast
-const store = useWeeklyWeather();
-const { weeklyChartData } = toRefs(store);
-
 const chartData = computed(() => ({
   labels: [
     ...weeklyChartData.value.date.map((el: any, i: number) => [
@@ -27,6 +26,13 @@ const chartData = computed(() => ({
       backgroundColor: '#fde68a',
       borderColor: '#fde68a',
       hoverRadius: 6,
+      cubicInterpolationMode: 'monotone' as const,
+      tension: 0.4,
+      datalabels: {
+        color: '#fff',
+        align: 'end' as const,
+        anchor: 'start' as const,
+      },
     },
     {
       label: t('nightTemp'),
@@ -34,15 +40,23 @@ const chartData = computed(() => ({
       backgroundColor: '#a78bfa',
       borderColor: '#a78bfa',
       hoverRadius: 6,
+      cubicInterpolationMode: 'monotone' as const,
+      tension: 0.4,
+      datalabels: {
+        color: '#fff',
+        align: 'end' as const,
+        anchor: 'start' as const,
+      },
     },
   ],
 }));
+// Chart options
 const chartOptions = computed(() => ({
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
     legend: {
-      align: 'start' as 'start',
+      align: 'start' as const,
       labels: {
         boxWidth: 24,
         boxHeight: 10,

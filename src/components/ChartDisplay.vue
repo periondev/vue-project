@@ -34,7 +34,7 @@
     </div>
   </div>
   <div class="rounded-lg overflow-hidden bg-black/20 text-white">
-    <div v-if="chartDisplayActive" class="flex p-3 md:px-12 overflow-auto">
+    <div v-if="chartDisplayActive" class="flex p-2 md:px-4 overflow-auto">
       <CurrentChart v-if="selectedChart === 'current'" />
       <WeeklyChart v-if="selectedChart === 'weekly'" />
     </div>
@@ -57,6 +57,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 onBeforeMount(() => {
   ChartJS.register(
@@ -66,7 +67,8 @@ onBeforeMount(() => {
     LineElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    ChartDataLabels
   );
 });
 

@@ -11,7 +11,7 @@
   </div>
   <div class="flex flex-col gap-2 md:gap-3">
     <div
-      class="grid grid-cols-7 justify-items-center items-center py-3 md:py-4 text-sm rounded-lg bg-black/20 text-white"
+      class="grid grid-cols-7 justify-items-center items-center py-3 text-sm rounded-lg bg-black/20 text-white"
       v-if="elementItems"
       v-for="el in elementItems"
     >

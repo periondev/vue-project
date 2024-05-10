@@ -14,7 +14,7 @@
   >
     <p class="font-bold text-lg">{{ $t('currentWeather') }}</p>
     <div class="flex flex-col text-sm">
-      <div class="flex justify-between my-1 mx-3 md:mx-8">
+      <div class="flex justify-between mx-3 md:mx-8">
         <div
           v-if="currentData.wx && currentData.temp && currentData.ci"
           class="flex flex-row items-center gap-3 md:gap-10"
