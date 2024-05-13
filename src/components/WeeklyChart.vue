@@ -1,5 +1,5 @@
 <template>
-  <Line :options="chartOptions" :data="chartData" :height="240" />
+  <Line :options="chartOptions" :data="chartData" />
 </template>
 
 <script setup lang="ts">
@@ -32,6 +32,9 @@ const chartData = computed(() => ({
         color: '#fff',
         align: 'end' as const,
         anchor: 'start' as const,
+        font: {
+          weight: 'bold' as const,
+        },
       },
     },
     {
@@ -46,6 +49,9 @@ const chartData = computed(() => ({
         color: '#fff',
         align: 'end' as const,
         anchor: 'start' as const,
+        font: {
+          weight: 'bold' as const,
+        },
       },
     },
   ],
@@ -70,7 +76,7 @@ const chartOptions = computed(() => ({
         color: '#525252',
       },
       ticks: {
-        color: '#fff',
+        color: '#e5e5e5',
       },
     },
     y: {
@@ -78,7 +84,7 @@ const chartOptions = computed(() => ({
         color: '#525252',
       },
       ticks: {
-        color: '#fff',
+        color: '#e5e5e5',
       },
       suggestedMax: 32,
       suggestedMin: 20,

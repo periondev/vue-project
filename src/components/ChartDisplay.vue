@@ -35,8 +35,17 @@
   </div>
   <div class="rounded-lg overflow-hidden bg-black/20 text-white">
     <div v-if="chartDisplayActive" class="flex p-2 md:px-4 overflow-auto">
-      <CurrentChart v-if="selectedChart === 'current'" />
-      <WeeklyChart v-if="selectedChart === 'weekly'" />
+      <CurrentChart
+        v-if="selectedChart === 'current'"
+        width="1200"
+        height="240"
+        aria-label="Current Weather Line Chart"
+      />
+      <WeeklyChart
+        v-if="selectedChart === 'weekly'"
+        height="240"
+        aria-label="Weekly Weather Line Chart"
+      />
     </div>
   </div>
 </template>
