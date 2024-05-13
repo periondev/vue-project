@@ -46,7 +46,7 @@ export const useCurrentWeather = defineStore('currentWeather', {
 
           const TCollection = dataNow[2].time.slice(0, 25);
           const ATCollection = dataNow[1].time.slice(0, 25);
-          console.log(TCollection);
+
           // 取得簡化日期、時間函式
           const getDate = (str: string) =>
             str.split(' ')[0].split('-').slice(1).join('/');
