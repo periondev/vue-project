@@ -23,8 +23,8 @@ const chartData = computed(() => ({
     {
       label: t('dayTemp'),
       data: weeklyChartData.value.tempDay,
-      backgroundColor: '#fde68a',
-      borderColor: '#fde68a',
+      backgroundColor: '#fef08a',
+      borderColor: '#fef08a',
       hoverRadius: 6,
       cubicInterpolationMode: 'monotone' as const,
       tension: 0.4,
@@ -40,8 +40,8 @@ const chartData = computed(() => ({
     {
       label: t('nightTemp'),
       data: weeklyChartData.value.tempNight,
-      backgroundColor: '#a78bfa',
-      borderColor: '#a78bfa',
+      backgroundColor: '#60a5fa',
+      borderColor: '#60a5fa',
       hoverRadius: 6,
       cubicInterpolationMode: 'monotone' as const,
       tension: 0.4,
@@ -73,18 +73,18 @@ const chartOptions = computed(() => ({
   scales: {
     x: {
       grid: {
-        color: '#525252',
+        color: '#3f3f46',
       },
       ticks: {
-        color: '#e5e5e5',
+        color: '#d4d4d4',
       },
     },
     y: {
       grid: {
-        color: '#525252',
+        color: '#3f3f46',
       },
       ticks: {
-        color: '#e5e5e5',
+        color: '#d4d4d4',
       },
       suggestedMax: 32,
       suggestedMin: 20,

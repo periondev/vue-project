@@ -18,8 +18,8 @@ const chartData = computed(() => ({
     {
       label: t('temp'),
       data: currentChartData.value.temp,
-      backgroundColor: '#2dd4bf',
-      borderColor: '#2dd4bf',
+      backgroundColor: '#a5f3fc',
+      borderColor: '#a5f3fc',
       hoverRadius: 6,
       cubicInterpolationMode: 'monotone' as const,
       tension: 0.4,
@@ -35,8 +35,8 @@ const chartData = computed(() => ({
     {
       label: t('apparentTemp'),
       data: currentChartData.value.at,
-      backgroundColor: '#fecdd3',
-      borderColor: '#fecdd3',
+      backgroundColor: '#fb923c',
+      borderColor: '#fb923c',
       hoverRadius: 6,
       cubicInterpolationMode: 'monotone' as const,
       tension: 0.4,
@@ -68,18 +68,18 @@ const chartOptions = computed(() => ({
   scales: {
     x: {
       grid: {
-        color: '#525252',
+        color: '#3f3f46',
       },
       ticks: {
-        color: '#e5e5e5',
+        color: '#d4d4d4',
       },
     },
     y: {
       grid: {
-        color: '#525252',
+        color: '#3f3f46',
       },
       ticks: {
-        color: '#e5e5e5',
+        color: '#d4d4d4',
       },
       suggestedMax: 32,
       suggestedMin: 20,
