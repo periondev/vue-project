@@ -14,7 +14,7 @@
 
 ## Demo
 
-Live Demo: [天氣預報](https://periondev.github.io/tw-weather/)
+Live Demo: [天氣預報](https://periondev.github.io/vue-weather/)
 
 <img alt="screenshot" src="Preview-Images/vue-weather_(pc).webp" width="560px" />
 <img alt="screenshot" src="Preview-Images/vue-weather_(iPhone 14 Pro Max).webp" width="200px" />
