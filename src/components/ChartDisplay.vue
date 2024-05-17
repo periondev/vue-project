@@ -37,7 +37,7 @@
     <div v-if="chartDisplayActive" class="flex p-2 md:px-4 overflow-auto">
       <CurrentChart
         v-if="selectedChart === 'current'"
-        width="1200"
+        width="1000"
         height="240"
         aria-label="Current Weather Line Chart"
       />

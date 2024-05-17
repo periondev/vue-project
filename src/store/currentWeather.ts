@@ -5,7 +5,7 @@ import axios from 'axios';
 export const useCurrentWeather = defineStore('currentWeather', {
   state: () => ({
     currentData: {} as CurrentElements,
-    currentChartData: {} as CurrentChartData, // 折線圖數據 Chart data
+    currentChartData: {} as CurrentChartData, // 逐三小時折線圖數據 3-hour Chart data
   }),
   actions: {
     async fetchWeather(city: string, region: string, dataId: string[]) {
@@ -47,15 +47,18 @@ export const useCurrentWeather = defineStore('currentWeather', {
           const TCollection = dataNow[2].time.slice(0, 25);
           const ATCollection = dataNow[1].time.slice(0, 25);
 
-          // 取得簡化日期、時間函式
+          // 取得簡化日期、簡化時間函式
           const getDate = (str: string) =>
             str.split(' ')[0].split('-').slice(1).join('/');
-          const getTime = (str: string) => str.split(' ')[1].slice(0, 5);
+          const getTime = (str: string) => str.split(' ')[1].slice(0, 2);
 
-          const dateArr = TCollection.map((el: any) => [
-            getDate(el.dataTime),
-            getTime(el.dataTime),
-          ]);
+          // 逐3小時的日期時間陣列
+          const dateArr = TCollection.map((el: any, i: number) => {
+            // 陣列中每逢8倍數索引值的陣列中加入時間、日期兩個字串，其餘僅時間字串
+            return i % 8 === 0
+              ? [getTime(el.dataTime), getDate(el.dataTime)]
+              : [getTime(el.dataTime)];
+          });
 
           const tArr = TCollection.map((el: any) => el.elementValue[0].value);
           const atArr = ATCollection.map((el: any) => el.elementValue[0].value);
