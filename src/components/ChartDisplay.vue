@@ -4,30 +4,36 @@
   >
     <button
       @click="toggleChartDisplay"
-      class="flex my-auto gap-2 justify-items-center text-center font-bold"
+      class="flex my-auto gap-2 justify-items-center text-center"
     >
-      <p v-if="!chartDisplayActive">{{ $t('showChart') }}</p>
+      <p v-if="!chartDisplayActive" class="font-bold">{{ $t('showChart') }}</p>
       <p v-if="chartDisplayActive">{{ $t('hideChart') }}</p>
       <ChevronDownIcon
         v-if="!chartDisplayActive"
-        class="h-[14px] w-auto hover:scale-110 duration-150 cursor-pointer my-auto"
+        class="h-[14px] w-auto my-auto"
       />
       <ChevronUpIcon
         v-if="chartDisplayActive"
-        class="h-[14px] w-auto hover:scale-110 duration-150 cursor-pointer my-auto"
+        class="h-[14px] w-auto my-auto"
       />
     </button>
-    <div v-if="chartDisplayActive" class="flex gap-3">
+    <div v-if="chartDisplayActive" class="flex gap-3 items-center">
       <button
         :title="$t('every3hourForecastsTitle')"
         @click="showChart('current')"
-        :class="{ 'font-bold': selectedChart === 'current' }"
+        :class="{
+          'font-bold': selectedChart === 'current',
+        }"
       >
-        {{ $t('every3hourForecasts') }}</button
-      ><button
+        {{ $t('every3hourForecasts') }}
+      </button>
+      <span class="opacity-40">|</span>
+      <button
         :title="$t('sevenDayTempChartTitle')"
         @click="showChart('weekly')"
-        :class="{ 'font-bold': selectedChart === 'weekly' }"
+        :class="{
+          'font-bold': selectedChart === 'weekly',
+        }"
       >
         {{ $t('sevenDayTempChart') }}
       </button>
@@ -51,11 +57,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onBeforeMount, computed } from 'vue';
+import { useChartDisplay } from '@/store/chartDisplay';
 import WeeklyChart from './WeeklyChart.vue';
 import CurrentChart from './CurrentChart.vue';
 import { ChevronDownIcon } from '@heroicons/vue/24/solid';
 import { ChevronUpIcon } from '@heroicons/vue/24/solid';
-import { ref, onBeforeMount } from 'vue';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -81,15 +88,15 @@ onBeforeMount(() => {
   );
 });
 
-const chartDisplayActive = ref(true);
-const selectedChart = ref('current');
-
-// Control chart display
-const toggleChartDisplay = () => {
-  chartDisplayActive.value = !chartDisplayActive.value;
-};
+// Toggle chart display
+const useChartDisplayStore = useChartDisplay();
+const { toggleChartDisplay } = useChartDisplay();
+const chartDisplayActive = computed(
+  () => useChartDisplayStore.chartDisplayActive
+);
 
 // Control switch between charts
+const selectedChart = ref('current');
 const showChart = (chart: string) => {
   selectedChart.value = chart;
 };
