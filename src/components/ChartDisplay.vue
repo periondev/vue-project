@@ -20,7 +20,7 @@
     <div v-if="chartDisplayActive" class="flex gap-3 items-center">
       <button
         :title="$t('every3hourForecastsTitle')"
-        @click="showChart('current')"
+        @click="selectedChart = 'current'"
         :class="{
           'font-bold': selectedChart === 'current',
         }"
@@ -30,7 +30,7 @@
       <span class="opacity-40">|</span>
       <button
         :title="$t('sevenDayTempChartTitle')"
-        @click="showChart('weekly')"
+        @click="selectedChart = 'weekly'"
         :class="{
           'font-bold': selectedChart === 'weekly',
         }"
@@ -41,26 +41,14 @@
   </div>
   <div class="rounded-lg overflow-hidden bg-black/20 text-white">
     <div v-if="chartDisplayActive" class="flex p-2 md:px-4 overflow-auto">
-      <CurrentChart
-        v-if="selectedChart === 'current'"
-        width="1000"
-        height="240"
-        aria-label="Current Weather Line Chart"
-      />
-      <WeeklyChart
-        v-if="selectedChart === 'weekly'"
-        height="240"
-        aria-label="Weekly Weather Line Chart"
-      />
+      <component :is="selectedChartComponent" height="240"></component>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount, computed } from 'vue';
+import { toRefs } from 'vue';
 import { useChartDisplay } from '@/store/chartDisplay';
-import WeeklyChart from './WeeklyChart.vue';
-import CurrentChart from './CurrentChart.vue';
 import { ChevronDownIcon } from '@heroicons/vue/24/solid';
 import { ChevronUpIcon } from '@heroicons/vue/24/solid';
 import {
@@ -75,29 +63,23 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-onBeforeMount(() => {
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-    ChartDataLabels
-  );
-});
-
-// Toggle chart display
-const useChartDisplayStore = useChartDisplay();
-const { toggleChartDisplay } = useChartDisplay();
-const chartDisplayActive = computed(
-  () => useChartDisplayStore.chartDisplayActive
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ChartDataLabels
 );
 
-// Control switch between charts
-const selectedChart = ref('current');
-const showChart = (chart: string) => {
-  selectedChart.value = chart;
-};
+// Control chart display and switch between charts
+const store = useChartDisplay();
+const {
+  chartDisplayActive,
+  selectedChart,
+  toggleChartDisplay,
+  selectedChartComponent,
+} = toRefs(store);
 </script>
