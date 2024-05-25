@@ -1,5 +1,11 @@
 <template>
-  <Line :options="chartOptions" :data="chartData" />
+  <Line
+    v-if="chartDataReady"
+    :options="chartOptions"
+    :data="chartData"
+    aria-label="Current Weather Line Chart"
+    width="1000"
+  />
 </template>
 
 <script setup lang="ts">
@@ -10,6 +16,11 @@ import i18n from '../utils/vue-i18n';
 const { t } = i18n.global;
 const currentStore = useCurrentWeather();
 const { currentChartData } = toRefs(currentStore);
+
+// (在渲染組件前) 檢查currentChartData是否已定義並包含有效數據
+const chartDataReady = computed(() => {
+  return currentChartData.value.date && currentChartData.value.date.length > 0;
+});
 
 // Chart data of current weather forecast
 const chartData = computed(() => ({

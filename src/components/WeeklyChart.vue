@@ -1,5 +1,10 @@
 <template>
-  <Line :options="chartOptions" :data="chartData" />
+  <Line
+    v-if="chartDataReady"
+    :options="chartOptions"
+    :data="chartData"
+    aria-label="Weekly Weather Line Chart"
+  />
 </template>
 
 <script setup lang="ts">
@@ -10,6 +15,11 @@ import i18n from '../utils/vue-i18n';
 const { t, d } = i18n.global;
 const weeklyStore = useWeeklyWeather();
 const { weeklyChartData } = toRefs(weeklyStore);
+
+// (在渲染組件前) 檢查weeklyChartData是否已定義並包含有效數據
+const chartDataReady = computed(() => {
+  return weeklyChartData.value.date && weeklyChartData.value.date.length > 0;
+});
 
 // Chart data of weekly weather forecast
 const chartData = computed(() => ({
