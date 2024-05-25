@@ -12,7 +12,7 @@ export default {
   day: '白天',
   night: '晚上',
   // Chart buttons
-  showChart: '展開折線圖',
+  showChart: '查看折線圖',
   hideChart: '收起折線圖',
   every3hourForecasts: '逐三小時預報',
   every3hourForecastsTitle: '逐三小時溫度曲線',
