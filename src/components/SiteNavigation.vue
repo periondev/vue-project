@@ -59,14 +59,13 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
 import BaseModel from './BaseModel.vue';
-import { ref, onMounted } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { useLanguage } from '@/store/language';
 import { InformationCircleIcon } from '@heroicons/vue/24/solid';
 import { LanguageIcon } from '@heroicons/vue/24/solid';
 import { onClickOutside } from '@vueuse/core';
-const { locale } = useI18n();
 const modelActive = ref(false);
 const menuActive = ref(false);
 const langMenu = ref(null);
@@ -91,8 +90,9 @@ onMounted(() => {
 });
 
 // 語言切換
-const changeLang = (val: string) => {
-  locale.value = val;
+const languageStore = useLanguage();
+const changeLang = (lang: string) => {
+  languageStore.selectLang(lang);
   toggleMenu();
 };
 </script>
