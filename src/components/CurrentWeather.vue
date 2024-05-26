@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="currentData.regionName && currentData.cityName"
     class="flex justify-center align-center p-2 text-white rounded-t-lg bg-weather-primary"
   >
     <h1 v-if="$i18n.locale === 'en'" class="text-lg truncate">
