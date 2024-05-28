@@ -20,7 +20,11 @@
           v-if="currentData.wx && currentData.temp && currentData.ci"
           class="flex flex-row items-center gap-3 md:gap-10"
         >
-          <WeatherImage :weather="currentData.wx" class="h-20 md:h-24 w-auto" />
+          <WeatherImage
+            :weather="currentData.wx"
+            :hours="hours"
+            class="h-20 md:h-24 w-auto"
+          />
           <div>
             <span class="flex flex-row items-start font-bold md:gap-2">
               <p class="text-5xl">{{ currentData.temp }}</p>
@@ -58,4 +62,5 @@ import WeatherImage from './WeatherImage.vue';
 import { toRefs } from 'vue';
 const store = useCurrentWeather();
 const { currentData } = toRefs(store);
+const hours: number = new Date().getHours();
 </script>

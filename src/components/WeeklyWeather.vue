@@ -25,11 +25,21 @@
       </span>
       <div class="col-span-2 gap-1">
         <span class="flex flex-row gap-1 items-start">
-          <WeatherImage :weather="el.wx[0]" class="h-4 md:h-6 w-auto" />
+          <WeatherImage
+            :weather="el.wx[0]"
+            :hours="8"
+            :width="22"
+            :height="22"
+          />
           <p>{{ $t(el.wx[0]) }}</p>
         </span>
         <span class="flex flex-row gap-1 items-start">
-          <WeatherImage :weather="el.wx[1]" class="h-4 md:h-6 w-auto" />
+          <WeatherImage
+            :weather="el.wx[1]"
+            :hours="20"
+            :width="22"
+            :height="22"
+          />
           <p>{{ $t(el.wx[1]) }}</p>
         </span>
       </div>
