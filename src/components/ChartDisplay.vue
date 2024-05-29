@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="flex p-2 justify-between align-middle text-xs md:text-sm text-sky-200"
-  >
+  <div class="flex p-2 justify-between align-middle text-sm text-sky-200">
     <button
       @click="toggleChartDisplay"
       class="flex my-auto gap-2 justify-items-center text-center"
@@ -40,7 +38,7 @@
     </div>
   </div>
   <div class="rounded-lg overflow-hidden bg-black/20 text-white">
-    <div v-if="chartDisplayActive" class="flex p-2 md:px-4 overflow-auto">
+    <div v-if="chartDisplayActive" class="flex p-3 md:p-7 overflow-auto">
       <component :is="selectedChartComponent" height="240"></component>
     </div>
   </div>

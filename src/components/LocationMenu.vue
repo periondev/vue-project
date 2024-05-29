@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2 md:flex justify-center gap-y-4 gap-x-3 my-6">
+  <div class="grid grid-cols-2 md:flex justify-center gap-3 my-6">
     <!-- 選擇縣市 -->
     <select
       name="city"
