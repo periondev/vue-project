@@ -83,6 +83,8 @@ const chartOptions = computed(() => ({
       },
       ticks: {
         color: '#d4d4d4',
+        autoSkip: false, // Disable automatic skipping
+        maxRotation: 0, // Disable rotation
       },
     },
     y: {
