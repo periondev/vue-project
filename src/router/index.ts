@@ -16,6 +16,9 @@ const router = createRouter({
       component: AboutView,
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0 }; // 切換路由始終滾動至頁頂
+  },
 });
 
 export default router;
