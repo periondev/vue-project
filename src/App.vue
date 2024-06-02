@@ -3,7 +3,9 @@
     class="flex flex-col justify-between min-h-screen font-Roboto bg-scroll bg-cover bg-[url('/bg-outdoor.jpg')]"
   >
     <SiteNavigation />
-    <RouterView />
+    <main class="container px-4 mt-14 tracking-wide">
+      <RouterView />
+    </main>
     <AppFooter />
   </div>
 </template>

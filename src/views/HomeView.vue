@@ -1,11 +1,9 @@
 <template>
-  <main class="container mx-auto px-4 mt-14 tracking-wide">
-    <LocationMenu />
-    <History />
-    <CurrentWeather />
-    <ChartDisplay />
-    <WeeklyWeather />
-  </main>
+  <LocationMenu />
+  <History />
+  <CurrentWeather />
+  <ChartDisplay />
+  <WeeklyWeather />
 </template>
 
 <script setup lang="ts">
