@@ -1,5 +1,5 @@
 <template>
-  <footer class="container mx-auto p-4 mt-8 text-center text-white/60">
+  <footer class="container p-4 mt-8 text-center text-white/60">
     <p class="mb-3">
       <RouterLink to="/" class="underline hover:font-bold">
         {{ $t('HomeTitle') }}
@@ -16,12 +16,22 @@
       >
       © 2024
     </p>
-    <a
-      href="https://www.flaticon.com/free-icons/weather"
-      title="weather icons"
-      target="_blank"
-      class="text-xs"
-      >Weather icons created by fjstudio - Flaticon</a
-    >
+    <span class="text-xs">
+      Weather icons created by
+      <a
+        href="https://www.flaticon.com/free-icons/weather"
+        title="weather icons"
+        target="_blank"
+      >
+        fjstudio - Flaticon</a
+      >,
+      <a
+        href="https://www.iconfinder.com/iconsets/the-weather-is-nice-today"
+        title="weather icons"
+        target="_blank"
+      >
+        Laura Reen - Iconfinder</a
+      >
+    </span>
   </footer>
 </template>
