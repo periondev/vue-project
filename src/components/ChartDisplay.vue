@@ -4,34 +4,27 @@
       @click="toggleChartDisplay"
       class="flex my-auto gap-2 justify-items-center text-center"
     >
-      <p v-if="!chartDisplayActive" class="font-bold">{{ $t('showChart') }}</p>
-      <p v-if="chartDisplayActive">{{ $t('hideChart') }}</p>
-      <ChevronDownIcon
-        v-if="!chartDisplayActive"
-        class="h-[14px] w-auto my-auto"
-      />
-      <ChevronUpIcon
-        v-if="chartDisplayActive"
+      <p :class="{ 'font-bold': !chartDisplayActive }">
+        {{ $t(chartDisplayActive ? 'hideChart' : 'showChart') }}
+      </p>
+      <component
+        :is="chartDisplayActive ? ChevronUpIcon : ChevronDownIcon"
         class="h-[14px] w-auto my-auto"
       />
     </button>
     <div v-if="chartDisplayActive" class="flex gap-3 items-center">
       <button
         :title="$t('every3hourForecastsTitle')"
-        @click="selectedChart = 'current'"
-        :class="{
-          'font-bold': selectedChart === 'current',
-        }"
+        @click="setSelectedChart('current')"
+        :class="buttonClass('current')"
       >
         {{ $t('every3hourForecasts') }}
       </button>
       <span class="opacity-40">|</span>
       <button
         :title="$t('sevenDayTempChartTitle')"
-        @click="selectedChart = 'weekly'"
-        :class="{
-          'font-bold': selectedChart === 'weekly',
-        }"
+        @click="setSelectedChart('weekly')"
+        :class="buttonClass('weekly')"
       >
         {{ $t('sevenDayTempChart') }}
       </button>
@@ -80,4 +73,13 @@ const {
   toggleChartDisplay,
   selectedChartComponent,
 } = toRefs(store);
+
+const setSelectedChart = (chartName: string) => {
+  selectedChart.value = chartName;
+};
+
+const buttonClass = (chartName: string) => ({
+  'font-bold': selectedChart.value === chartName,
+  'text-white': selectedChart.value === chartName,
+});
 </script>
