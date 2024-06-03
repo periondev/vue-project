@@ -1,9 +1,15 @@
 import { defineStore } from 'pinia';
-import { defineAsyncComponent } from 'vue';
+import { defineAsyncComponent, markRaw } from 'vue';
 export const useChartDisplay = defineStore('chartDisplay', {
   state: () => ({
     chartDisplayActive: true, // 控制顯示折線圖區塊
     selectedChart: 'current',
+    currentChartComponent: markRaw(
+      defineAsyncComponent(() => import('@/components/CurrentChart.vue'))
+    ),
+    weeklyChartComponent: markRaw(
+      defineAsyncComponent(() => import('@/components/WeeklyChart.vue'))
+    ),
   }),
   actions: {
     toggleChartDisplay() {
@@ -14,13 +20,9 @@ export const useChartDisplay = defineStore('chartDisplay', {
     selectedChartComponent: (state) => {
       switch (state.selectedChart) {
         case 'current':
-          return defineAsyncComponent(
-            () => import('@/components/CurrentChart.vue')
-          );
+          return state.currentChartComponent;
         case 'weekly':
-          return defineAsyncComponent(
-            () => import('@/components/WeeklyChart.vue')
-          );
+          return state.weeklyChartComponent;
       }
     },
   },
