@@ -4,15 +4,14 @@
     :alt="weather"
     :width="width"
     :height="height"
-    rel="preload"
-    fetchpriority="high"
+    :fetchpriority="fetchpriority"
   />
 </template>
 
 <script setup lang="ts">
 defineProps({
-  weather: String,
-  hours: { Number, required: true },
+  weather: { type: String, required: true },
+  hours: { type: Number, required: true },
   width: {
     type: Number,
     default: 60,
@@ -21,6 +20,7 @@ defineProps({
     type: Number,
     default: 60,
   },
+  fetchpriority: { type: String, default: 'auto' },
 });
 
 // 檢查白天時間方法
