@@ -430,7 +430,7 @@ export default {
   非常寒冷: 'Very cold',
   舒適至悶熱: 'Comfortable ~ Hot',
   悶熱: 'Hot',
-  '非常悶熱(容易中暑)': 'Very hot (Prone to heatstroke)',
+  易中暑: 'Extremely hot',
   //weather wx 天氣現象:
   晴: 'Clear',
   晴天: 'Clear',
