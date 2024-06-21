@@ -16,8 +16,9 @@
 
 Live Demo: [天氣預報](https://periondev.github.io/vue-weather/)
 
-<img alt="screenshot" src="Preview-Images/vue-weather_(pc).webp" width="560px" />
-<img alt="screenshot" src="Preview-Images/vue-weather_(iPhone 14 Pro Max).webp" width="200px" />
+<img alt="Mobile web page screenshot" src="https://raw.githubusercontent.com/periondev/image-hosting/main/vue-weather/vue-weather_(Mobile)(zh_tw).png" width="300px" />
+<img alt="Mobile web page screenshot" src="https://raw.githubusercontent.com/periondev/image-hosting/main/vue-weather/vue-weather_(Mobile)(en).png" width="300px" />
+<img alt="PC web page screenshot" src="https://raw.githubusercontent.com/periondev/image-hosting/main/vue-weather/vue-weather_(PC)(zh_tw).png" width="600px" />
 
 ## 參考文件
 
@@ -36,4 +37,5 @@ This is a Vue 3 project bootstrapped with [create-vue](https://github.com/vuejs/
 - Framework: Vue.js (Vue 3)
 - Styling: Tailwind CSS
 - Internationalization: Vue I18n
+- Data visualization: Chart.js
 - Deployment: GitHub Pages & GitHub Actions
