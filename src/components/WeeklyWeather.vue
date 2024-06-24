@@ -30,6 +30,7 @@
             :hours="8"
             :width="22"
             :height="22"
+            fetchpriority="low"
           />
           <p>{{ $t(el.wx[0]) }}</p>
         </span>
@@ -39,6 +40,7 @@
             :hours="20"
             :width="22"
             :height="22"
+            fetchpriority="low"
           />
           <p>{{ $t(el.wx[1]) }}</p>
         </span>

@@ -23,7 +23,6 @@
           <WeatherImage
             :weather="currentData.wx"
             :hours="hours"
-            fetchpriority="high"
             class="h-20 md:h-24 w-auto"
           />
           <div>
