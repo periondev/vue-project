@@ -10,50 +10,52 @@ export const useWeeklyWeather = defineStore('weeklyWeather', {
   actions: {
     async fetchWeather(city: string, region: string, dataId: string[]) {
       try {
+        // 串接臺灣各縣市鄉鎮未來1週天氣預報API
         const response = await axios.get(
           `https://opendata.cwa.gov.tw/api/v1/rest/datastore/${dataId[1]}?`,
           {
             params: {
               Authorization: import.meta.env.VITE_API,
-              locationName: region,
-              elementName: 'PoP12h,T,RH,Wx',
+              LocationName: region,
+              ElementName: '平均溫度,平均相對濕度,12小時降雨機率,天氣現象',
             },
           }
         );
+
         // 由API獲取的指定天氣因子資料存進data
         const data =
-          response.data.records.locations[0].location[0].weatherElement;
+          response.data.records.Locations[0].Location[0].WeatherElement;
 
         if (data) {
-          const pop12h = data[0].time;
-          const t = data[1].time;
-          const rh = data[2].time;
-          const wx = data[3].time;
-          // 取得氣象元素數值方法
-          const getValue = (arr: any) => {
-            return arr.map((item: any) => item.elementValue[0].value);
+          // 通用函數，用來提取氣象元素數值
+          const extractData = (source: any, index: number, key: string) => {
+            return source[index].Time.map(
+              (item: any) => item.ElementValue[0][key]
+            );
           };
-          // 資料陣列:
-          const dateArr = data[0].time.map((item: any) => item.startTime); // 每天開始時間
-          const popArr = getValue(pop12h); // 降雨機率
-          const tArr = getValue(t); // 平均氣溫
-          const rhArr = getValue(rh); // 平均相對濕度
-          const wxArr = getValue(wx); // 天氣現象
+          const tArr = extractData(data, 0, 'Temperature'); // 平均溫度
+          const rhArr = extractData(data, 1, 'RelativeHumidity'); // 平均相對濕度
+          const popArr = extractData(data, 2, 'ProbabilityOfPrecipitation'); // 12小時降雨機率
+          const wxArr = extractData(data, 3, 'Weather'); // 天氣現象
+
+          // 提取每天開始時間陣列:
+          const dateArr = data[0].Time.map((item: any) => item.StartTime);
 
           // 排除陣列第一筆資料:因查詢時間區段跨夜(After 18:00)造成第一筆為過時資料
           [dateArr, popArr, tArr, rhArr, wxArr].forEach(
             (arr) => arr.length > 14 && arr.shift()
           );
 
-          // 簡化日期:月/日、格式化日期
+          // 通用函數，用於簡化時間為:月/日
           const shortDate = dateArr.map((d: string) =>
-            d.split(' ')[0].split('-').slice(1).join('/')
+            d.split('T')[0].split('-').slice(1).join('/')
           );
+          // 通用函數，用於格式化時間為 Unix 時間戳記
           const formattedDate = dateArr.map((d: string) => {
             return new Date(d);
           });
 
-          // 使用迭代方法將陣列轉換為物件儲存於陣列中
+          // 一週預報天氣元素
           for (let i = 0; i < 7; i++) {
             this.elements[i] = {
               dayOfWeek: formattedDate[i * 2],
@@ -64,7 +66,7 @@ export const useWeeklyWeather = defineStore('weeklyWeather', {
               wx: [wxArr[i * 2], wxArr[i * 2 + 1]],
             };
           }
-          // 折線圖數據
+          // 一週預報折線圖資料
           this.weeklyChartData = {
             date: shortDate.filter((_: any, i: number) => i % 2 === 0),
             dayOfWeek: formattedDate.filter((_: any, i: number) => i % 2 === 0),
